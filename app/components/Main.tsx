@@ -2,7 +2,58 @@
 
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import Products from "./Products";
+
+const productGroup = [
+  {
+    title: "Sneakers",
+    image: "/images/product1.png",
+    live: "products/sneakers",
+  },
+  {
+    title: "Wrist Watches",
+    image: "/images/product2.png",
+    live: "products/wristwatches",
+  },
+  {
+    title: "Latest Cars",
+    image: "/images/product3.png",
+    live: "products/cars",
+  },
+  {
+    title: "Male Shoes",
+    image: "/images/product4.png",
+    live: "products/maleshoes",
+  },
+  {
+    title: "Male Wears",
+    image: "/images/product5.png",
+    live: "products/malewears",
+  },
+  {
+    title: "Female Shoes",
+    image: "/images/product6.png",
+    live: "products/femaleshoes",
+  },
+  {
+    title: "Female Wears",
+    image: "/images/product7.png",
+    live: "products/female-wears",
+  },
+  {
+    title: "Phones",
+    image: "/images/product8.png",
+    live: "products/phones",
+  },
+  {
+    title: "Laptops",
+    image: "/images/product9.png",
+    live: "products/laptops",
+  },
+];
 
 export default function Main() {
   const [current, setCurrent] = useState(0);
@@ -34,6 +85,13 @@ export default function Main() {
     },
     {
       src: "/images/slide2.png",
+      title: "Deals of the Week",
+      description: "Don't miss out on massive discounts across all categories!",
+      textColor: "text-white",
+      url: "/deals",
+    },
+    {
+      src: "/images/slide4.png",
       title: "Deals of the Week",
       description: "Don't miss out on massive discounts across all categories!",
       textColor: "text-white",
@@ -72,9 +130,9 @@ export default function Main() {
                   </p>
 
                   {/* Clickable Button */}
-                  <button className="bg-white text-blue-600 px-6 py-3 rounded-lg shadow-lg font-semibold hover:bg-gray-100 transition duration-300">
+                  <a href={slide.url} className="bg-white text-blue-600 px-6 py-3 rounded-lg shadow-lg font-semibold hover:bg-gray-100 transition duration-300 cursor-pointer">
                     Shop Now
-                  </button>
+                  </a>
                 </div>
               </div>
             ))}
@@ -111,6 +169,43 @@ export default function Main() {
           </div>
         </div>
       </section>
+
+      <section className="product-groups">
+        <div className="mx-auto lg:p-10 py-5 text-center">
+          <div className="grid gap-8 grid-cols-2 lg:grid-cols-3 mx-10">
+            {productGroup.map((product, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: "spring", stiffness: 200 }}
+              >
+                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 lg:p-10">
+                  <CardContent>
+                    <Image
+                      src={product.image}
+                      width={300}
+                      height={100}
+                      alt=""
+                      className="mx-auto block"
+                    />
+                  </CardContent>
+                  <CardFooter className="flex justify-center gap-6">
+                    <a
+                      href={product.live}
+                      // target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-blue-600 text-white p-3 rounded-sm transition"
+                    >
+                      {product.title}
+                    </a>
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <Products />
     </main>
   );
 }
