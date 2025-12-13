@@ -1,5 +1,4 @@
 import api from "axios";
-import axios from 'axios';
 import Products from "@/app/components/Products";
 import { label } from "framer-motion/client";
 

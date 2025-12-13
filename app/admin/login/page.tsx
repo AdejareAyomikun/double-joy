@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { loginUser } from "./api/auth";
+import { loginUser } from "../api/auth";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
@@ -23,7 +23,7 @@ export default function LoginPage() {
       console.log("TOKEN IN LOCALSTORAGE:", localStorage.getItem("token")); // debug
 
       if (data.access) {
-        router.push("/admin/dashboard");  // redirect after login
+        router.push("/admin");  // redirect after login
       } else {
         setError("Login failed, token not received");
       }

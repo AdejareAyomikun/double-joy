@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { API_BASE } from "@/lib/api";
+import { API_URL } from "@/lib/utils";
 
 const CartContext = createContext();
 
@@ -14,7 +14,7 @@ export function CartProvider({ children }) {
     if (!token) return;
 
     axios
-      .get(`${API_BASE}/cart/`, {
+      .get(`${API_URL}/cart/`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setCart(res.data))

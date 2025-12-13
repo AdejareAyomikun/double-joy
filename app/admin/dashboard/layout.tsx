@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import "../globals.css";
+import "../../globals.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -16,6 +16,8 @@ import {
   Settings,
   ShieldCheck,
   MoreHorizontal,
+  Layers,
+  ShoppingCart,
 } from "lucide-react";
 
 export default function DashboardLayout({
@@ -29,59 +31,49 @@ export default function DashboardLayout({
     { 
         name: "Dashboard", 
         icon: Home, 
-        href: "/admin", 
-    },
-    { 
-        name: "Users", 
-        icon: Users, 
-        href: "/admin/users", 
+        href: "/admin/dashboard", 
     },
     { 
         name: "Admins", 
         icon: UserCog, 
-        href: "/admin/admins", 
+        href: "/admin/dashboard/admins", 
     },
     { 
         name: "Orders", 
-        icon: UserCog, 
-        href: "/admin/orders" 
+        icon: ShoppingCart, 
+        href: "/admin/dashboard/orders" 
     },
     { 
         name: "Products", 
-        icon: UserCog, 
-        href: "/admin/products" 
+        icon: Layers, 
+        href: "/admin/dashboard/products" 
     },
     { 
         name: "Fees", 
         icon: Wallet, 
-        href: "/admin/fee", 
+        href: "/admin/dashboard/fee", 
     },
     { 
         name: "Academics", 
         icon: BookOpen, 
-        href: "/admin/academics", 
-    },
-    {
-      name: "Communication",
-      icon: MessageSquare,
-      href: "/admin/communication",
+        href: "/admin/dashboard/academics", 
     },
     { 
         name: "Reports", 
         icon: BarChart3, 
-        href: "/admin/reports", 
+        href: "/admin/dashboard/reports", 
 
     },
     { 
         name: "System & Configuration", 
         icon: Settings, 
-        href: "/admin/system", 
+        href: "/admin/dashboard/system", 
 
     },
     {
       name: "Security & Compliance",
       icon: ShieldCheck,
-      href: "/admin/security",
+      href: "/admin/dashboard/security",
     },
   ];
   const isActive = (href: string) => {
@@ -94,13 +86,6 @@ export default function DashboardLayout({
       <aside className="hidden sm:flex flex-col gap-6 bg-white  border-r border-gray-200 w-56 p-4 items-start fixed top-0 left-0 h-full z-20">
         {/* Logo */}
         <div className="flex items-center gap-2 mb-6">
-          {/* <Image
-            src="/images/logo-removebg-preview.png"
-            alt="Lunarithm Logo"
-            width={32}
-            height={32}
-            className="object-contain"
-          /> */}
           <span className="text-lg text-black font-semibold tracking-wide">
             Double-Joy{" "}
           </span>
@@ -126,7 +111,7 @@ export default function DashboardLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 sm:ml-56 p-4 sm:p-6 pb-20">{children}</main>
+      <main className="flex-1 sm:ml-56">{children}</main>
 
       {/* Mobile Footer Nav */}
       <nav className="sm:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 flex justify-around items-center py-2 z-30">

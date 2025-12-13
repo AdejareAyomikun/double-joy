@@ -172,7 +172,7 @@ export default function Main() {
 
       <section className="product-groups">
         <div className="mx-auto lg:p-10 py-5 text-center">
-          <div className="grid gap-8 grid-cols-2 lg:grid-cols-3 mx-10">
+          <div className="grid gap-8 grid-cols-2 lg:grid-cols-3">
             {productGroup.map((product, index) => (
               <motion.div
                 key={index}
