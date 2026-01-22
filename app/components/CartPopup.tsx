@@ -1,14 +1,25 @@
 "use client";
+
+import { useCart } from "../context/CartContext";
 import { Check } from "lucide-react";
 
-export default function CartPopup({ show }) {
+type CartPopupProps = {
+  show: boolean;
+};
+
+export default function CartPopup({ show }: CartPopupProps) {
+  const { successMessage, clearMessage } = useCart();
+
+  if (!successMessage) return null;
+
   return (
-    <div
-      className={`fixed flex top-6 right-6 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg transition-all duration-300 ${
-        show ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
-      }`}
-    >
-      <Check className="mr-2"/> Added to Cart
+    <div className="fixed top-5 right-5 z-50">
+      <div className="bg-green-600 text-white px-5 py-3 rounded-lg shadow-lg flex items-center gap-3 animate-slide-in">
+        <span className="flex">{successMessage} <Check className="p-1 ml-2 border-2 rounded-2xl"/></span>
+        <button onClick={clearMessage} className="text-white font-bold">
+          ✕
+        </button>
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ interface LoginResponse {
 
 export const loginUser = async (username: string, password: string): Promise<LoginResponse> => {
   try {
-    const res = await api.post<LoginResponse>("auth/login/", {
+    const res = await api.post<LoginResponse>("/auth/login/", {
       username,
       password,
     });
@@ -15,7 +15,7 @@ export const loginUser = async (username: string, password: string): Promise<Log
     console.log("AXIOS RESPONSE:", res.data);
 
     if (typeof window !== "undefined") {
-      localStorage.setItem("token", res.data.access);
+      localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
       console.log("TOKEN SAVED:", localStorage.getItem("token"));
     }
@@ -27,12 +27,22 @@ export const loginUser = async (username: string, password: string): Promise<Log
   }
 };
 
+export const decodeToken = (token: string) => {
+  return JSON.parse(atob(token.split(".")[1]));
+};
+
 export const registerUser = async (userData: any) => {
-  const res = await api.post("accounts/register/", userData);
-  return res.data;
+  try {
+    const res = await api.post("/auth/register/", userData);
+    return res.data;
+  } catch(err: any){
+    console.log("REGISTERATION ERROR", err.response?.data || err.message);
+    throw err;
+  }
+ 
 };
 
 export const refreshToken = async (refresh: string) => {
-  const res = await api.post("accounts/token/refresh/", { refresh });
+  const res = await api.post("/auth/token/refresh/", { refresh });
   return res.data;
 };

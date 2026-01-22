@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { decodeToken } from "@/api/auth";
+import { getAdminAnalytics } from "@/api/adminAnalytics";
 import Image from "next/image";
 import {
   Plus,
@@ -20,13 +22,35 @@ import Header from "../components/Header";
 
 export default function DashboardPage() {
   const router = useRouter();
+  const [metrics, setMetrics] = useState<{
+    total_orders: number;
+    pending_orders: number;
+    completed_orders: number;
+    total_revenue: number;
+  } | null>(null);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access");
 
     if (!token) {
       router.push("/admin/login");
+      return;
     }
+    const payload = decodeToken(token);
+    if (!payload.is_staff) {
+      router.push("/");
+      return;
+    }
+    getAdminAnalytics(token)
+      .then((data) => {
+        setMetrics(data.summary);
+      })
+      .catch((err) => {
+        console.error("Failed to load analytics", err);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -42,19 +66,27 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white p-6 rounded-xl shadow">
             <h2 className="text-gray-500 text-sm">Total Orders</h2>
-            <p className="text-2xl font-bold text-gray-800">1,245</p>
+            <p className="text-2xl font-bold text-gray-800">
+              {loading ? "Loading..." : metrics?.total_orders}
+            </p>
           </div>
           <div className="bg-white p-6 rounded-xl shadow">
             <h2 className="text-gray-500 text-sm">Active Orders</h2>
-            <p className="text-2xl font-bold text-gray-800">78</p>
+            <p className="text-2xl font-bold text-gray-800">
+              {loading ? "Loading..." : metrics?.pending_orders}
+            </p>
           </div>
           <div className="bg-white p-6 rounded-xl shadow">
             <h2 className="text-gray-500 text-sm">Closed Orders</h2>
-            <p className="text-2xl font-bold text-gray-800">78</p>
+            <p className="text-2xl font-bold text-gray-800">
+              {loading ? "Loading..." : metrics?.completed_orders}
+            </p>
           </div>
-          <div className="bg-white p-6 rounded-xl shadow">
-            <h2 className="text-gray-500 text-sm">Revenue (This Month)</h2>
-            <p className="text-2xl font-bold text-gray-800">₦4,560,000</p>
+          <div className="bg-white p-6 rounded-xl shadow text-center">
+            <h2 className="text-gray-500 text-sm text-center">Revenue (This Month)</h2>
+            <p className="text-2xl font-bold text-gray-800">
+              {loading ? "Loading..." : `₦${metrics?.total_revenue.toLocaleString()}`}
+            </p>
           </div>
         </div>
 

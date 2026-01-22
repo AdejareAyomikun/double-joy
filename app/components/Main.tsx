@@ -1,62 +1,21 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Products from "./Products";
-
-const productGroup = [
-  {
-    title: "Sneakers",
-    image: "/images/product1.png",
-    live: "products/sneakers",
-  },
-  {
-    title: "Wrist Watches",
-    image: "/images/product2.png",
-    live: "products/wristwatches",
-  },
-  {
-    title: "Latest Cars",
-    image: "/images/product3.png",
-    live: "products/cars",
-  },
-  {
-    title: "Male Shoes",
-    image: "/images/product4.png",
-    live: "products/maleshoes",
-  },
-  {
-    title: "Male Wears",
-    image: "/images/product5.png",
-    live: "products/malewears",
-  },
-  {
-    title: "Female Shoes",
-    image: "/images/product6.png",
-    live: "products/femaleshoes",
-  },
-  {
-    title: "Female Wears",
-    image: "/images/product7.png",
-    live: "products/female-wears",
-  },
-  {
-    title: "Phones",
-    image: "/images/product8.png",
-    live: "products/phones",
-  },
-  {
-    title: "Laptops",
-    image: "/images/product9.png",
-    live: "products/laptops",
-  },
-];
+import { getCategories } from "@/api/products";
 
 export default function Main() {
   const [current, setCurrent] = useState(0);
+  const [categories, setCategories] = useState<any[]>([]);
+
+  useEffect(() => {
+    getCategories().then(setCategories);
+  }, []);
 
   const prevSlide = () => {
     setCurrent(current === 0 ? slides.length - 1 : current - 1);
@@ -130,7 +89,10 @@ export default function Main() {
                   </p>
 
                   {/* Clickable Button */}
-                  <a href={slide.url} className="bg-white text-blue-600 px-6 py-3 rounded-lg shadow-lg font-semibold hover:bg-gray-100 transition duration-300 cursor-pointer">
+                  <a
+                    href={slide.url}
+                    className="bg-white text-blue-600 px-6 py-3 rounded-lg shadow-lg font-semibold hover:bg-gray-100 transition duration-300 cursor-pointer"
+                  >
                     Shop Now
                   </a>
                 </div>
@@ -173,31 +135,32 @@ export default function Main() {
       <section className="product-groups">
         <div className="mx-auto lg:p-10 py-5 text-center">
           <div className="grid gap-8 grid-cols-2 lg:grid-cols-3">
-            {productGroup.map((product, index) => (
+            {categories.map((cat) => (
               <motion.div
-                key={index}
+                key={cat.id}
                 whileHover={{ scale: 1.03 }}
                 transition={{ type: "spring", stiffness: 200 }}
               >
-                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 lg:p-10">
+                <Card className="overflow-hidden transition-all duration-300 lg:p-10">
                   <CardContent>
-                    <Image
-                      src={product.image}
+                    {/* <Image
+                      src="products/category"
                       width={300}
                       height={100}
                       alt=""
                       className="mx-auto block"
-                    />
+                    /> */}
                   </CardContent>
                   <CardFooter className="flex justify-center gap-6">
-                    <a
-                      href={product.live}
-                      // target="_blank"
+                    <Link
+                      key={cat.id}
+                      href={`/products/category/${cat.id}`}
                       rel="noopener noreferrer"
                       className="bg-blue-600 text-white p-3 rounded-sm transition"
                     >
-                      {product.title}
-                    </a>
+                      {cat.name}
+                      <p className="text-sm">View all {cat.name} products →</p>
+                    </Link>
                   </CardFooter>
                 </Card>
               </motion.div>

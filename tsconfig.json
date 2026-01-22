@@ -37,7 +37,7 @@
     "**/*.mts",
     ".next\\dev/types/**/*.ts",
     ".next\\dev/types/**/*.ts"
-, "app/context/CartContext.jsx", "app/products/[category]/[product]/ProductDetails.jsx", "lib/productData.tsx"  ],
+, "app/context/CartContext.tsx", "app/products/[category]/[product]/ProductDetails.jsx", "lib/productData.tsx"  ],
   "exclude": [
     "node_modules"
   ]

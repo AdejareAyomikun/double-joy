@@ -1,4 +1,5 @@
 import api from "./axios";
+import { Category, Product } from "@/types/admin";
 
 export const createProduct = async (productData: FormData) => {
   try {
@@ -33,9 +34,21 @@ export const getProducts = async () => {
   }
 };
 
-export const getCategories = async () => {
+export const getProductsByCategory = async (
+  categoryId: number,
+): Promise<Product[]> => {
   try {
-    const res = await api.get("/categories/"); // Make sure you have a DRF endpoint for categories
+    const res = await api.get<Product[]>(`/products/?category=${categoryId}`);
+    return res.data;
+  } catch (err: any) {
+    console.error("Error fetching category products:", err.response || err);
+    throw err;
+  }
+};
+
+export const getCategories = async (): Promise<Category[]> => {
+  try {
+    const res = await api.get<Category[]>("/categories/");
     return res.data;
   } catch (err: any) {
     console.error("API Error fetching categories:", err.response || err);

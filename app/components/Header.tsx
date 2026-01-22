@@ -141,113 +141,124 @@ export default function Header() {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="bg-white mx-auto" ref={shopDropdownRef}>
-      <nav className="hidden lg:flex container lg:items-center py-5 lg:px-10 justify-between">
-        <Link href="/">Double-Joy</Link>
-        <div className="flex items-center space-x-2">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="p-2 w-100 rounded-sm border border-gray-400 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button className="p-2 text-white bg-blue-600 rounded-sm hover:bg-blue-700 cursor-pointer">
-            Search
-          </button>
-        </div>
-        <ul className="flex space-x-5">
-          <li className="relative" ref={accountDropdownRef}>
-            <a href="#" onClick={toggleAccountDropdown} className="flex">
-              <User className="mr-2" />
-              Account
-              <ChevronDown className="pt-1" />
-            </a>
-            {/* Dropdown Menu Content (hidden by default) */}
-            {isAccountDropdownOpen && (
-              <div className="absolute right--35 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
-                <a
-                  href="/profile"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  <User className="mr-2 h-4 w-4" /> Profile
+    <header
+      className="bg-white w-full border-b sticky top-0 z-50"
+      ref={shopDropdownRef}
+    >
+      <div className="container mx-auto">
+        <nav className="hidden lg:flex items-center justify-between py-5 lg:px-10">
+          <div className="shrink-0">
+            <Link href="/">Double-Joy</Link>
+          </div>
+          <div className="flex flex-1 justify-center px-10">
+            <div className="flex items-center space-x-2">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="p-2 lg:w-[320px] xl:w-[400px] rounded-sm border border-gray-400 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button className="p-2 text-white bg-blue-600 rounded-sm hover:bg-blue-700 cursor-pointer">
+                Search
+              </button>
+            </div>
+          </div>
+          <div className="shrink-0">
+            <ul className="flex space-x-5">
+              <li className="relative" ref={accountDropdownRef}>
+                <a href="#" onClick={toggleAccountDropdown} className="flex">
+                  <User className="mr-2" />
+                  Account
+                  <ChevronDown className="pt-1" />
                 </a>
-                <a
-                  href="/authentication"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  <User className="mr-2 h-4 w-4" /> Login
+                {/* Dropdown Menu Content (hidden by default) */}
+                {isAccountDropdownOpen && (
+                  <div className="absolute right-[-35px] mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
+                    <a
+                      href="/profile"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <User className="mr-2 h-4 w-4" /> Profile
+                    </a>
+                    <a
+                      href="/authentication/login"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <User className="mr-2 h-4 w-4" /> Login
+                    </a>
+                    <a
+                      href="/settings"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <ListOrdered className="mr-2 h-4 w-4" /> Orders
+                    </a>
+                    <a
+                      href="/settings"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <Heart className="mr-2 h-4 w-4" /> Wishlist
+                    </a>
+                    <a
+                      href="/logout"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <LogOut className="mr-2 h-4 w-4" /> Log Out
+                    </a>
+                  </div>
+                )}
+              </li>
+              <li className="relative" ref={shopDropdownRef}>
+                <a href="#" onClick={toggleShopDropdown} className="flex">
+                  <Store className="mr-2" />
+                  Shop
+                  <ChevronDown className="pt-1" />
                 </a>
-                <a
-                  href="/settings"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  <ListOrdered className="mr-2 h-4 w-4" /> Orders
+              </li>
+              <li className="relative" ref={helpDropdownRef}>
+                <a href="#" onClick={toggleHelpDropdown} className="flex">
+                  <CircleQuestionMark className="mr-2" />
+                  Help
+                  <ChevronDown className="pt-1" />
                 </a>
-                <a
-                  href="/settings"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  <Heart className="mr-2 h-4 w-4" /> Wishlist
-                </a>
-                <a
-                  href="/logout"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  <LogOut className="mr-2 h-4 w-4" /> Log Out
-                </a>
-              </div>
-            )}
-          </li>
-          <li className="relative" ref={shopDropdownRef}>
-            <a href="#" onClick={toggleShopDropdown} className="flex">
-              <Store className="mr-2" />
-              Shop
-              <ChevronDown className="pt-1" />
-            </a>
-          </li>
-          <li className="relative" ref={helpDropdownRef}>
-            <a href="#" onClick={toggleHelpDropdown} className="flex">
-              <CircleQuestionMark className="mr-2" />
-              Help
-              <ChevronDown className="pt-1" />
-            </a>
 
-            {isHelpDropdownOpen && (
-              <div className="absolute right--35 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
-                <a
-                  href="/profile"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  Help Center
-                </a>
-                <a
-                  href="/settings"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  Place an orders
-                </a>
-                <a
-                  href="/settings"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  Track an Order
-                </a>
-                <a
-                  href="/logout"
-                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  Cancel an order
-                </a>
-              </div>
-            )}
-          </li>
-          <li>
-            <Link href="/cart" className="flex">
-              <ShoppingCart className="mr-2" />
-              Cart
-            </Link>
-          </li>
-        </ul>
-      </nav>
+                {isHelpDropdownOpen && (
+                  <div className="absolute right--35 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
+                    <a
+                      href="/profile"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Help Center
+                    </a>
+                    <a
+                      href="/settings"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Place an orders
+                    </a>
+                    <a
+                      href="/settings"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Track an Order
+                    </a>
+                    <a
+                      href="/logout"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Cancel an order
+                    </a>
+                  </div>
+                )}
+              </li>
+              <li>
+                <Link href="/cart" className="flex">
+                  <ShoppingCart className="mr-2" />
+                  Cart
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
 
       {/* ---------------- MOBILE / TABLET NAV ---------------- */}
       <nav className="lg:hidden px-5 py-4 flex justify-between items-center border-b">

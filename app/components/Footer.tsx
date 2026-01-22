@@ -1,6 +1,6 @@
 export default function Footer() {
     return(
-        <footer className="bg-gray-800 text-white py-6 mt-10">
+        <footer className="bg-gray-800 text-white py-6">
             <div className="grid grid-cols-5 p-5">
                 <a href="/">Double-Joy</a>
                 <div className="block">
