@@ -1,23 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import "../../globals.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Home,
-  Users,
   UserCog,
   Wallet,
   BookOpen,
-  MessageSquare,
   BarChart3,
   Settings,
   ShieldCheck,
   MoreHorizontal,
   Layers,
   ShoppingCart,
+  LogOut,
 } from "lucide-react";
 
 export default function DashboardLayout({
@@ -28,50 +26,43 @@ export default function DashboardLayout({
   const pathname = usePathname();
   const [showMore, setShowMore] = useState(false);
   const navItems = [
-    { 
-        name: "Dashboard", 
-        icon: Home, 
-        href: "/admin/dashboard", 
-    },
-    { 
-        name: "Admins", 
-        icon: UserCog, 
-        href: "/admin/dashboard/admins", 
-    },
-    { 
-        name: "Orders", 
-        icon: ShoppingCart, 
-        href: "/admin/dashboard/orders" 
-    },
-    { 
-        name: "Products", 
-        icon: Layers, 
-        href: "/admin/dashboard/products" 
-    },
-    { 
-        name: "Fees", 
-        icon: Wallet, 
-        href: "/admin/dashboard/fee", 
-    },
-    { 
-        name: "Academics", 
-        icon: BookOpen, 
-        href: "/admin/dashboard/academics", 
-    },
-    { 
-        name: "Reports", 
-        icon: BarChart3, 
-        href: "/admin/dashboard/reports", 
-
-    },
-    { 
-        name: "System & Configuration", 
-        icon: Settings, 
-        href: "/admin/dashboard/system", 
-
+    {
+      name: "Dashboard",
+      icon: Home,
+      href: "/admin/dashboard",
     },
     {
-      name: "Security & Compliance",
+      name: "Orders",
+      icon: ShoppingCart,
+      href: "/admin/dashboard/orders",
+    },
+    {
+      name: "Products",
+      icon: Layers,
+      href: "/admin/dashboard/products",
+    },
+    {
+      name: "Categories",
+      icon: Layers,
+      href: "/admin/dashboard/categories",
+    },
+    {
+      name: "Admins",
+      icon: UserCog,
+      href: "/admin/dashboard/admins",
+    },
+    {
+      name: "Fees",
+      icon: Wallet,
+      href: "/admin/dashboard/fee",
+    },
+    {
+      name: "System",
+      icon: Settings,
+      href: "/admin/dashboard/system",
+    },
+    {
+      name: "Security",
       icon: ShieldCheck,
       href: "/admin/dashboard/security",
     },
@@ -81,62 +72,75 @@ export default function DashboardLayout({
     return normalize(pathname) === normalize(href);
   };
   return (
-    <section className="min-h-screen  flex flex-col bg-white text-black relative">
+    <section className="min-h-screen flex flex-col bg-[#fcf9f6] text-[#360212] relative font-sans">
       {/* Desktop Sidebar */}
-      <aside className="hidden sm:flex flex-col gap-6 bg-white  border-r border-gray-200 w-56 p-4 items-start fixed top-0 left-0 h-full z-20">
+      <aside className="hidden sm:flex flex-col gap-6 bg-white  border-r border-[#d791be]/20 w-64 p-4 items-start fixed top-0 left-0 h-full z-20">
         {/* Logo */}
-        <div className="flex items-center gap-2 mb-6">
-          <span className="text-lg text-black font-semibold tracking-wide">
-            Double-Joy{" "}
-          </span>
+        <div className="p-8">
+          <Link href="/admin/dashboard">
+            <h1 className="font-serif text-2xl font-bold tracking-tighter text-[#360212]">
+              Double-Joy
+            </h1>
+          </Link>
+          <p className="text-[9px] uppercase tracking-[0.3em] text-[#89547c] mt-1">
+            Admin Terminal
+          </p>
         </div>
 
         {/* Desktop Nav */}
-        <nav className="flex flex-col gap-3 w-full">
+        <nav className="flex-1 px-4 space-y-1">
           {navItems.map(({ name, icon: Icon, href }) => (
             <Link
               key={name}
               href={href}
-              className={`flex items-center gap-2 text-sm px-3 py-2 rounded-md w-full transition ${
+              className={`flex items-center gap-3 px-4 py-3 text-11px font-bold uppercase tracking-widest transition-all duration-300 group ${
                 isActive(href)
-                  ? "text-black bg-gray-200"
-                  : "text-gray-700 hover:text-black hover:bg-gray-100"
+                  ? "bg-[#360212] text-white shadow-lg translate-x-1"
+                  : "text-[#89547c] hover:text-[#360212] hover:bg-[#fcf9f6]"
               }`}
             >
-              <Icon className="w-5 h-5" />
+              <Icon
+                size={18}
+                className={`${isActive(href) ? "text-[#fe5457]" : "text-[#d791be]"} transition-colors`}
+              />
               <span>{name}</span>
             </Link>
           ))}
         </nav>
+        {/* Logout / Footer */}
+        <div className="p-4 border-t border-[#fcf9f6]">
+          <button className="flex items-center gap-3 w-full px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-[#9f002b] hover:bg-red-50 transition-colors cursor-pointer">
+            <LogOut size={16} />
+            <span>Sign Out</span>
+          </button>
+        </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 sm:ml-56">{children}</main>
+      <main className="flex-1 sm:ml-64 min-h-screen">
+        <div className="max-w-[1600px] mx-auto">{children}</div>
+      </main>
 
       {/* Mobile Footer Nav */}
-      <nav className="sm:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 flex justify-around items-center py-2 z-30">
+      <nav className="sm:hidden fixed bottom-0 left-0 w-full bg-white border-t border-[#d791be]/20 flex justify-around items-center py-3 z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
         {navItems.slice(0, 3).map(({ name, icon: Icon, href }) => {
           const active = isActive(href);
           return (
             <Link
               key={name}
               href={href}
-              className={`relative flex flex-col items-center text-xs transition px-3 py-1 rounded-md ${
-                active
-                  ? "text-[hsl(165,62%,31%)] font-semibold"
-                  : "text-gray-600 hover:text-black"
+              className={`relative flex flex-col items-center gap-1 transition-all ${
+                active ? "text-[#360212]" : "text-[#d791be]"
               }`}
             >
               {/* Active indicator bar */}
               {active && (
-                <span className="absolute -top-2 w-8 h-1 rounded-full bg-[hsl(165,62%,31%)]"></span>
+                <span className="absolute -top-2 w-10 h-1 bg-[#fe5457] rounded-full"></span>
               )}
-              <Icon
-                className={`w-6 h-6 mb-1 ${
-                  active ? "text-[hsl(165,62%,31%)]" : "text-gray-500"
-                }`}
-              />
-              <span>{name}</span>
+              <Icon size={22} />
+              <span className="text-[9px] font-bold uppercase tracking-tighter">
+                {name}
+              </span>
             </Link>
           );
         })}
@@ -144,28 +148,24 @@ export default function DashboardLayout({
         {/* More button */}
         <button
           onClick={() => setShowMore(!showMore)}
-          className={`relative flex flex-col items-center text-xs transition px-3 py-1 rounded-md ${
-            showMore
-              ? "text-black font-semibold"
-              : "text-gray-600 hover:text-black"
+          className={`relative flex flex-col items-center gap-1 transition-all ${
+            showMore ? "text-[#fe5457]" : "text-[#d791be]"
           }`}
         >
           {showMore && (
-            <span className="absolute -top-2 w-8 h-1 rounded-full bg-black"></span>
+            <span className="absolute -top-2 w-10 h-1 bg-[#fe5457] rounded-full"></span>
           )}
-          <MoreHorizontal
-            className={`w-6 h-6 mb-1 ${
-              showMore ? "text-black" : "text-gray-500"
-            }`}
-          />
-          <span>More</span>
+          <MoreHorizontal size={22} />
+          <span className="text-[9px] font-bold uppercase tracking-tighter">
+            More
+          </span>
         </button>
       </nav>
 
       {/* More Menu (Dropdown) */}
       {showMore && (
-        <div className="sm:hidden fixed bottom-14 left-0 w-full bg-white border-t border-gray-200 shadow-lg z-40">
-          <nav className="flex flex-col divide-y">
+        <div className="sm:hidden fixed bottom-14 left-0 w-full bg-white border-t border-[#fcf9f6] shadow-2xl z-40 animate-in slide-in-from-bottom-5">
+          <nav className="grid grid-cols-2 gap-px bg-[#fcf9f6]">
             {navItems.slice(3).map(({ name, icon: Icon, href }) => {
               const active = isActive(href);
               return (
@@ -173,18 +173,14 @@ export default function DashboardLayout({
                   key={name}
                   href={href}
                   onClick={() => setShowMore(false)}
-                  className={`flex items-center gap-3 px-4 py-3 text-sm transition ${
-                    active
-                      ? "text-black font-semibold bg-gray-100"
-                      : "text-gray-700 hover:text-black hover:bg-gray-50"
+                  className={`flex items-center gap-3 px-6 py-4 bg-white transition-colors ${
+                    active ? "text-[#fe5457]" : "text-[#360212]"
                   }`}
                 >
-                  <Icon
-                    className={`w-5 h-5 ${
-                      active ? "text-black" : "text-gray-500"
-                    }`}
-                  />
-                  <span>{name}</span>
+                  <Icon size={18} />
+                  <span className="text-[10px] font-bold uppercase tracking-widest">
+                    {name}
+                  </span>
                 </Link>
               );
             })}

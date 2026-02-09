@@ -1,18 +1,12 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
 import api from "@/api/axios";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
 import { useCart } from "@/app/context/CartContext";
 import CartPopup from "@/app/components/CartPopup";
-// import { getProducts } from "@/api/products";
-import { get } from "axios";
-import { label } from "framer-motion/client";
 
 type ProductTag = "new_arrival" | "best_seller" | "top_rate" | "special_sales";
 
@@ -134,9 +128,12 @@ export default function Products() {
 
   useEffect(() => {
     getProducts().then(setProducts).catch(console.error);
-    const interval = setInterval(() => {
-      getProducts().then(setProducts).catch(console.error);
-    }, 5 * 60 * 1000);
+    const interval = setInterval(
+      () => {
+        getProducts().then(setProducts).catch(console.error);
+      },
+      5 * 60 * 1000,
+    );
     return () => clearInterval(interval);
   }, []);
 
@@ -147,7 +144,7 @@ export default function Products() {
   };
 
   const filteredProducts = products.filter(
-    (product) => product.tag === activeProduct
+    (product) => product.tag === activeProduct,
   );
 
   const tabs: { label: string; value: ProductTag }[] = [
@@ -158,17 +155,22 @@ export default function Products() {
   ];
 
   return (
-    <section className="text-center">
-      <h1 className="text-3xl font-bold text-gray-800 py-5">Products</h1>
-      <header className="gap-4 border-b mb-6">
+    <section className="text-center py-5 bg-[#fcf9f6] font-sans">
+      <div className="text-center mb-16">
+        <h1 className="font-serif text-4xl text-[#360212] font-bold">
+          Products
+        </h1>
+        <div className="w-24 h-1 bg-[#fe5457] mx-auto mt-4"></div>
+      </div>
+      <header className="flex justify-center gap-2 md:gap-8 border-b border-[#d791be]/20 mb-10 mx-auto max-w-4xl">
         {tabs.map((tab) => (
           <button
             key={tab.value}
             onClick={() => setActiveProduct(tab.value)}
-            className={`pb-2 px-3 font-medium capitalize cursor-pointer  ${
+            className={`pb-4 px-4 font-bold text-sm uppercase tracking-widest transition-all cursor-pointer ${
               activeProduct === tab.value
-                ? "border-b-2 border-black text-black"
-                : "text-gray-500 hover:text-gray-700"
+                ? "border-b-2 border-[#9f002b] text-[#9f002b]"
+                : "text-[#89547c] hover:text-[#9f002b]"
             }`}
           >
             {tab.label}
@@ -176,19 +178,19 @@ export default function Products() {
         ))}
       </header>
 
-      <div className="p-10 text-center">
-        <div className="grid gap-8 grid-cols-2 lg:grid-cols-3">
+      <div className="container mx-auto px-6">
+        <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {filteredProducts.map((product) => (
             <motion.div
               key={product.id}
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ y: -8 }}
               transition={{ type: "spring", stiffness: 200 }}
             >
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 lg:p-10">
+              <Card className="border-none bg-white shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
                 <Link
                   key={product.id}
                   href={`/product/${product.id}`}
-                  className="block"
+                  className="relative block group overflow-hidden"
                 >
                   <CardContent>
                     <img
@@ -197,20 +199,30 @@ export default function Products() {
                       height={100}
                       alt=""
                       loading="lazy"
-                      className="mx-auto"
+                      className="w-full h-80 object-contain p-8 group-hover:scale-105 transition-transform duration-500"
                     />
+                    {/* Subtle Overlay Badge for Tags */}
+                    <span className="absolute top-4 left-4 bg-[#9973a0] text-white text-[10px] px-3 py-1 uppercase tracking-tighter font-bold">
+                      {product.tag.replace("_", " ")}
+                    </span>
                   </CardContent>
                 </Link>
-                <CardFooter className="block justify-center gap-6">
-                  <p>{product.name}</p>
-                  <p className="text-gray-600 line-clamp-2">
+                <CardFooter className="flex flex-col p-6 text-center">
+                  <h3 className="font-serif text-xl text-[#360212] font-semibold mb-2">
+                    {product.name}
+                  </h3>
+                  <p className="text-[#89547c] text-sm line-clamp-2 mb-4 h-10 px-4 font-medium">
                     {product.description}
                   </p>
-                  <br />
-                  <p>#{product.price}</p>
+                  <div className="mb-4">
+                    <span className="text-2xl font-bold text-[#360212]">
+                      ₦{Number(product.price).toLocaleString()}
+                    </span>
+                  </div>
+
                   <button
                     onClick={() => handleAddToCart(product.id)}
-                    className="mt-4 px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
+                    className="w-full py-3 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-xs hover:bg-[#9f002b] transition-colors duration-300 shadow-lg shadow-[#fe5457]/20 cursor-pointer"
                   >
                     Add To Cart
                   </button>

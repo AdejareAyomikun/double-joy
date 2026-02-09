@@ -6,70 +6,120 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getProducts } from "@/api/products";
 import { useCart } from "@/app/context/CartContext";
+import CartPopup from "@/app/components/CartPopup";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
-export default function CategoryPage({ params }: any) {
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  category: number | string;
+}
+
+export default function CategoryPage() {
   const { addToCart } = useCart();
+  const { categoryId } = useParams();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleAddToCart = (productId: number) => {
     addToCart(productId, 1);
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 1500);
   };
-
-  const { categoryId } = useParams();
-  const [products, setProducts] = useState<any[]>([]);
 
   useEffect(() => {
     getProducts().then((data) => {
-      const filtered = data.filter(
-        (p: any) => String(p.category) === String(categoryId)
+      const productData = data as Product[];
+      const filtered = productData.filter(
+        (p: any) => String(p.category) === String(categoryId),
       );
       setProducts(filtered);
     });
   }, [categoryId]);
 
   return (
-    <>
+    <div className="bg-[#fcf9f6] min-h-screen font-sans">
       <Header />
-      <section className="mx-auto p-5 text-center">
-        <h1 className="text-3xl font-bold mb-5">Products</h1>
+
+      <section className="container mx-auto py-16 px-6">
+        {/* Category Heading */}
+        <div className="text-center mb-16">
+          <h1 className="font-serif text-5xl text-[#360212] font-bold capitalize">
+            {/* {categoryId?.toString().replace("-", " ") || "Collection"} */}
+            Products
+          </h1>
+          <div className="w-20 h-1 bg-[#fe5457] mx-auto mt-6"></div>
+        </div>
+
+        {/* Empty State */}
         {products.length === 0 && (
-          <p className="text-gray-500 min-h-screen">
-            No products in this category yet.
-          </p>
+          <div className="text-center py-20">
+            <p className="text-[#89547c] text-lg italic">
+              Our curators are currently selecting new pieces for this category.
+            </p>
+            <Link
+              href="/"
+              className="mt-6 inline-block text-[#9f002b] font-bold border-b border-[#9f002b] pb-1"
+            >
+              Return to Gallery
+            </Link>
+          </div>
         )}
-        <div className="grid gap-8 grid-cols-2 lg:grid-cols-3 mx-10">
+
+        {/* Product Grid */}
+        <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
-            <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 lg:p-10">
-              <Link key={p.id} href={`/product/${p.id}`} className="block">
-                <CardContent>
-                  <Image
-                    src={p.image}
-                    alt={p.name}
-                    width={300}
-                    height={200}
-                    loading="lazy"
-                    className="mx-auto block"
-                    unoptimized
-                  />
-                </CardContent>
-                <CardFooter className="block justify-center gap-6">
-                  <p className="text-gray-600 line-clamp-2">{p.name}</p>
-                  <p className="line-clamp-2">#{p.price}</p>
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -10 }}
+            >
+              <Card className="border-none bg-white shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden rounded-none group">
+                <Link
+                  href={`/product/${p.id}`}
+                  className="block relative overflow-hidden"
+                >
+                  <CardContent className="p-0">
+                    <div className="aspect-4/5 relative">
+                      <Image
+                        src={p.image}
+                        alt={p.name}
+                        fill
+                        className="object-contain p-8 group-hover:scale-110 transition-transform duration-700"
+                        unoptimized
+                      />
+                    </div>
+                  </CardContent>
+                </Link>
+
+                <CardFooter className="flex flex-col p-8 bg-white text-center">
+                  <h3 className="font-serif text-xl text-[#360212] font-semibold mb-2">
+                    {p.name}
+                  </h3>
+                  <p className="text-2xl font-bold text-[#9f002b] mb-6">
+                    ₦{Number(p.price).toLocaleString()}
+                  </p>
+
+                  <button
+                    onClick={() => handleAddToCart(p.id)}
+                    className="w-full bg-[#fe5457] text-white py-4 font-bold uppercase tracking-[0.2em] text-xs hover:bg-[#360212] transition-colors duration-300 shadow-lg shadow-[#fe5457]/20"
+                  >
+                    Add to Bag
+                  </button>
                 </CardFooter>
-              </Link>
-              <button
-                onClick={() => handleAddToCart(p.id)}
-                className="mt-2 bg-blue-600 text-white px-4 py-3 rounded hover:bg-blue-700 cursor-pointer w-full"
-              >
-                Add to Cart
-              </button>
-            </Card>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </section>
+      <CartPopup show={showPopup} />
       <Footer />
-    </>
+    </div>
   );
 }

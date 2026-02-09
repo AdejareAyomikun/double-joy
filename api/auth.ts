@@ -1,24 +1,20 @@
 import api from "./axios";
+import Cookies from "js-cookie";
 
 interface LoginResponse {
   access: string;
   refresh: string;
 }
 
-export const loginUser = async (username: string, password: string): Promise<LoginResponse> => {
+export const loginUser = async (username: string, password: string, isAdmin: boolean = false): Promise<LoginResponse> => {
   try {
     const res = await api.post<LoginResponse>("/auth/login/", {
       username,
       password,
     });
-
-    console.log("AXIOS RESPONSE:", res.data);
-
-    if (typeof window !== "undefined") {
-      localStorage.setItem("access", res.data.access);
-      localStorage.setItem("refresh", res.data.refresh);
-      console.log("TOKEN SAVED:", localStorage.getItem("token"));
-    }
+    const cookieName = isAdmin ? "admin_access" : "user_access";
+    Cookies.set(cookieName, res.data.access, { expires: 7, secure: true, sameSite: "strict", path: "/" });
+    Cookies.set("refresh", res.data.refresh, { expires: 7, secure: true, sameSite: "strict", path: "/" });
 
     return res.data;
   } catch (err: any) {
@@ -28,18 +24,22 @@ export const loginUser = async (username: string, password: string): Promise<Log
 };
 
 export const decodeToken = (token: string) => {
-  return JSON.parse(atob(token.split(".")[1]));
+  try {
+    return JSON.parse(atob(token.split(".")[1]));
+  } catch (e) {
+    return null;
+  }
 };
 
 export const registerUser = async (userData: any) => {
   try {
     const res = await api.post("/auth/register/", userData);
     return res.data;
-  } catch(err: any){
+  } catch (err: any) {
     console.log("REGISTERATION ERROR", err.response?.data || err.message);
     throw err;
   }
- 
+
 };
 
 export const refreshToken = async (refresh: string) => {

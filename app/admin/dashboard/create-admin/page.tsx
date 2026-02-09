@@ -3,7 +3,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { ChevronRight } from "lucide-react";
-import Header from "../../components/Header";
+import Header from "@/app/admin/components/Header";
+import Footer from "@/app/admin/components/Footer";
 
 export default function CreateAdmin() {
   const [form, setForm] = useState({
@@ -35,7 +36,7 @@ export default function CreateAdmin() {
 
   return (
     <>
-    <Header />
+      <Header />
       <div className="m-5 p-10 bg-gray-100">
         <header className="flex sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <h1 className="flex text-3xl font-bold text-gray-800">
@@ -94,6 +95,7 @@ export default function CreateAdmin() {
           </button>
         </form>
       </div>
+      <Footer />
     </>
   );
 }

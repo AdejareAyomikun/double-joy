@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, MouseEvent as ReactMouseEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -15,7 +15,10 @@ import {
   Car,
   Menu,
   X,
+  CircleHelp,
 } from "lucide-react";
+import Cookies from "js-cookie";
+import { Button } from "@/components/ui/button";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -27,18 +30,17 @@ export default function Header() {
   const [isHelpDropdownOpen, setIsHelpDropdownOpen] = useState(false);
   const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(false);
 
-  const helpDropdownRef = useRef(null);
-  const accountDropdownRef = useRef(null);
-  const shopDropdownRef = useRef(null);
-  const mobileMenuRef = useRef(null);
-
+  const helpDropdownRef = useRef<HTMLLIElement>(null);
+  const accountDropdownRef = useRef<HTMLLIElement>(null);
+  const shopDropdownRef = useRef<HTMLLIElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         accountDropdownRef.current &&
-        !accountDropdownRef.current.contains(event.target)
+        !accountDropdownRef.current.contains(event.target as Node)
       ) {
         setIsAccountDropdownOpen(false);
       }
@@ -48,16 +50,16 @@ export default function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const toggleAccountDropdown = (e) => {
+  const toggleAccountDropdown = (e: ReactMouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     e.preventDefault();
     setIsAccountDropdownOpen(!isAccountDropdownOpen);
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         helpDropdownRef.current &&
-        !helpDropdownRef.current.contains(event.target)
+        !helpDropdownRef.current.contains(event.target as Node)
       ) {
         setIsHelpDropdownOpen(false);
       }
@@ -67,16 +69,16 @@ export default function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const toggleHelpDropdown = (e) => {
+  const toggleHelpDropdown = (e: ReactMouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     e.preventDefault();
     setIsHelpDropdownOpen(!isHelpDropdownOpen);
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         shopDropdownRef.current &&
-        !shopDropdownRef.current.contains(event.target)
+        !shopDropdownRef.current.contains(event.target as Node)
       ) {
         setIsShopDropdownOpen(false);
       }
@@ -86,7 +88,7 @@ export default function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const toggleShopDropdown = (e) => {
+  const toggleShopDropdown = (e: ReactMouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     e.preventDefault();
     setIsShopDropdownOpen(!isShopDropdownOpen);
   };
@@ -104,11 +106,11 @@ export default function Header() {
 
   // Click outside mobile menu to close
   useEffect(() => {
-    function handleClickOutside(e) {
+    function handleClickOutside(e: MouseEvent) {
       if (
         isMobileMenuOpen &&
         mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(e.target)
+        !mobileMenuRef.current.contains(e.target as Node)
       ) {
         closeMobileMenu();
       }
@@ -119,16 +121,23 @@ export default function Header() {
 
   // Close on ESC key
   useEffect(() => {
-    function handleEsc(e) {
+    function handleEsc(e: KeyboardEvent) {
       if (e.key === "Escape") {
         closeMobileMenu();
+        setIsAccountDropdownOpen(false);
+        setIsHelpDropdownOpen(false);
+        setIsShopDropdownOpen(false);
       }
     }
-    document.addEventListener("keydown", handleEsc);
-    return () => document.removeEventListener("keydown", handleEsc);
-  }, []);
+    const anyOpen = isMobileMenuOpen || isAccountDropdownOpen || isHelpDropdownOpen || isShopDropdownOpen;
 
-  // Lock body scroll when mobile menu is open
+    if (anyOpen) {
+      document.addEventListener("keydown", handleEsc);
+    }
+
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [isMobileMenuOpen, isAccountDropdownOpen, isHelpDropdownOpen, isShopDropdownOpen]);
+
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -140,118 +149,106 @@ export default function Header() {
     };
   }, [isMobileMenuOpen]);
 
+  const handleLogout = () => {
+    Cookies.remove("user_access", { path: "/" });
+    Cookies.remove("refresh", { path: "/" });
+
+    localStorage.clear();
+    window.location.href = "/login";
+  };
+
   return (
     <header
-      className="bg-white w-full border-b sticky top-0 z-50"
+      className="w-full sticky top-0 z-50 bg-white/90 border-b border-[#d791be]/30 backdrop-blur-md shadow-sm font-sans"
       ref={shopDropdownRef}
     >
       <div className="container mx-auto">
         <nav className="hidden lg:flex items-center justify-between py-5 lg:px-10">
-          <div className="shrink-0">
+          <div className="shrink-0 font-serif font-bold text-2xl text-[#9f002b]">
             <Link href="/">Double-Joy</Link>
           </div>
           <div className="flex flex-1 justify-center px-10">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 font-sans">
               <input
                 type="text"
                 placeholder="Search..."
-                className="p-2 lg:w-[320px] xl:w-[400px] rounded-sm border border-gray-400 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="p-2 lg:w-[220px] xl:w-[400px] rounded-sm border border-[#9973a0]/40 bg-white text-[#360212] placeholder-[#7A6A63] focus:outline-none focus:ring-2 focus:ring-[#89547c]"
               />
-              <button className="p-2 text-white bg-blue-600 rounded-sm hover:bg-blue-700 cursor-pointer">
+              <button className="p-2 bg-[#fe5457] text-white rounded-sm hover:bg-[#9f002b] transition-colors flex items-center cursor-pointer">
                 Search
               </button>
             </div>
           </div>
           <div className="shrink-0">
-            <ul className="flex space-x-5">
+            <ul className="flex space-x-5 text-[#360212] font-semibold uppercase tracking-wide text-xs">
               <li className="relative" ref={accountDropdownRef}>
-                <a href="#" onClick={toggleAccountDropdown} className="flex">
-                  <User className="mr-2" />
+                <button onClick={toggleAccountDropdown} className="flex items-center hover:text-[#9f002b] transition outline-none cursor-pointer">
+                  <User size={18} className="mr-2" />
                   Account
-                  <ChevronDown className="pt-1" />
-                </a>
+                  <ChevronDown size={16} className={`ml-1 transition-transform ${isAccountDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
                 {/* Dropdown Menu Content (hidden by default) */}
                 {isAccountDropdownOpen && (
-                  <div className="absolute right-[-35px] mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
-                    <a
+                  <div className="absolute right-0 mt-4 w-48 bg-white rounded-lg shadow-xl border border-[#d791be]/20 py-1 z-20">
+                    <Link
                       href="/profile"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="flex items-center px-4 py-2 text-xs hover:bg-[#d791be]/10 text-[#360212]"
                     >
-                      <User className="mr-2 h-4 w-4" /> Profile
-                    </a>
-                    <a
-                      href="/authentication/login"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      <User size={18} className="mr-2 h-4 w-4" /> Profile
+                    </Link>
+                    <Link
+                      href="/login"
+                      className="flex items-center px-4 py-2 text-xs hover:bg-[#d791be]/10 text-[#360212]"
                     >
-                      <User className="mr-2 h-4 w-4" /> Login
-                    </a>
-                    <a
+                      <User size={18} className="mr-2 h-4 w-4" /> Login
+                    </Link>
+                    <Link
                       href="/settings"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="flex items-center px-4 py-2 text-xs hover:bg-[#d791be]/10 text-[#360212]"
                     >
-                      <ListOrdered className="mr-2 h-4 w-4" /> Orders
-                    </a>
-                    <a
-                      href="/settings"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      <ListOrdered size={18} className="mr-2 h-4 w-4" /> Orders
+                    </Link>
+                    <Link
+                      href="/profile/wishlist"
+                      className="flex items-center px-4 py-2 text-xs hover:bg-[#d791be]/10 text-[#360212]"
                     >
-                      <Heart className="mr-2 h-4 w-4" /> Wishlist
-                    </a>
-                    <a
-                      href="/logout"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      <Heart size={18} className="mr-2 h-4 w-4" /> Wishlist
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center px-4 w-full py-2 text-xs text-[#9f002b] hover:bg-red-50 cursor-pointer"
                     >
-                      <LogOut className="mr-2 h-4 w-4" /> Log Out
-                    </a>
+                      <LogOut size={18} className="mr-2 h-4 w-4" /> Log Out
+                    </button>
                   </div>
                 )}
               </li>
               <li className="relative" ref={shopDropdownRef}>
-                <a href="#" onClick={toggleShopDropdown} className="flex">
-                  <Store className="mr-2" />
+                <button onClick={toggleShopDropdown} className="flex items-center hover:text-[#9f002b] transition outline-none cursor-pointer">
+                  <Store size={18} className="mr-2" />
                   Shop
-                  <ChevronDown className="pt-1" />
-                </a>
+                  <ChevronDown size={16} className={`ml-1 transition-transform ${isShopDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
               </li>
               <li className="relative" ref={helpDropdownRef}>
-                <a href="#" onClick={toggleHelpDropdown} className="flex">
-                  <CircleQuestionMark className="mr-2" />
+                <button onClick={toggleHelpDropdown} className="flex items-center hover:text-[#9f002b] transition outline-none cursor-pointer">
+                  <CircleQuestionMark size={18} className="mr-2" />
                   Help
-                  <ChevronDown className="pt-1" />
-                </a>
+                  <ChevronDown size={16} className={`ml-1 transition-transform ${isHelpDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
 
                 {isHelpDropdownOpen && (
-                  <div className="absolute right--35 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
-                    <a
-                      href="/profile"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Help Center
-                    </a>
-                    <a
-                      href="/settings"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Place an orders
-                    </a>
-                    <a
-                      href="/settings"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Track an Order
-                    </a>
-                    <a
-                      href="/logout"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Cancel an order
-                    </a>
+                  <div className="absolute right-0 mt-4 w-48 bg-white rounded-md shadow-lg py-1 z-20 border border-[#d791be]/20">
+                    <Link href="/help" className="flex items-center px-4 py-2 text-sm hover:bg-[#d791be]/10 text-[#360212]">Help Center</Link>
+                    <Link href="/orders" className="flex items-center px-4 py-2 text-sm hover:bg-[#d791be]/10 text-[#360212]">Place an order</Link>
+                    <Link href="/track" className="flex items-center px-4 py-2 text-sm hover:bg-[#d791be]/10 text-[#360212]">Track an Order</Link>
+                    <Link href="/cancel" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cancel an order</Link>
                   </div>
                 )}
               </li>
               <li>
-                <Link href="/cart" className="flex">
-                  <ShoppingCart className="mr-2" />
+                <Link href="/cart" className="flex items-center hover:text-[#9f002b] transition outline-none">
+                  <ShoppingCart size={18} className="mr-2" />
                   Cart
                 </Link>
               </li>
@@ -261,22 +258,24 @@ export default function Header() {
       </div>
 
       {/* ---------------- MOBILE / TABLET NAV ---------------- */}
-      <nav className="lg:hidden px-5 py-4 flex justify-between items-center border-b">
-        <Link href="/" className="text-xl font-semibold">
+      <nav className="lg:hidden px-6 py-5 flex justify-between items-center bg-[#fcf9f6] border-b border-[#d791be]/20 sticky top-0 z-40">
+        <Link href="/" className="font-serif text-2xl font-black text-[#360212] tracking-tighter">
           Double-Joy
         </Link>
 
-        <div className="flex items-center space-x-4">
-          <a href="/cart" aria-label="Open cart">
-            <ShoppingCart />
-          </a>
+        <div className="flex items-center space-x-5">
+          <Link href="/cart" aria-label="Open cart" className="text-[#360212] relative">
+            <ShoppingCart size={22} strokeWidth={1.5} />
+            <span className="absolute -top-1 -right-2 bg-[#fe5457] text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full">
+              0
+            </span>
+          </Link>
 
           <button
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             onClick={toggleMobileMenu}
-            className="p-2"
+            className="text-[#360212] p-1"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={26} strokeWidth={1.5} /> : <Menu size={26} strokeWidth={1.5} />}
           </button>
         </div>
       </nav>
@@ -284,129 +283,133 @@ export default function Header() {
       {/* MOBILE SLIDE-IN DRAWER */}
       <div
         ref={mobileMenuRef}
-        className={`lg:hidden fixed top-0 left-0 h-full bg-white w-72 shadow-xl z-50 transform transition-transform duration-300 ${
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-        role="dialog"
-        aria-modal="true"
+        className={`lg:hidden fixed top-0 left-0 h-full bg-[#360212] w-[85%] max-w-sm shadow-2xl z-50 transform transition-transform duration-500 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
-        <div className="px-5 py-5 flex justify-between items-center border-b">
-          <span className="font-bold text-lg">Menu</span>
-          <button onClick={closeMobileMenu} aria-label="Close menu">
-            <X />
-          </button>
+        {/* Drawer Header */}
+        <div className="px-6 py-6 flex justify-between items-center border-b border-[#d791be]/10 bg-[#360212]">
+          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#fcf9f6]">Navigation</span>
+          {/* <button onClick={closeMobileMenu} aria-label="Close menu" className="text-[#360212] hover:rotate-90 transition-transform duration-300">
+            <X size={20} />
+          </button> */}
         </div>
 
-        <div className="px-5 py-4 space-y-4 overflow-auto h-[calc(100vh-72px)]">
-          {/* Mobile Search */}
-          <div className="flex space-x-2">
+        <div className="px-6 py-8 space-y-8 overflow-auto h-[calc(100vh-80px)] scrollbar-hide bg-[#360212] backdrop-blur-sm">
+          {/* Mobile Search - Redesigned to be more minimal */}
+          <div className="relative group">
             <input
               type="text"
-              placeholder="Search..."
-              className="p-2 w-full rounded border border-gray-300 focus:ring-2 focus:ring-blue-500"
+              placeholder="SEARCH COLLECTIONS..."
+              className="w-full bg-white border-b border-[#fcf9f6]/30 py-3 px-4 text-[10px] font-bold tracking-widest text-[#360212] outline-none focus:border-[#fe5457] transition-all placeholder:text-[#d791be]/50"
             />
-            <button className="p-2 bg-blue-600 text-white rounded">Go</button>
-          </div>
-
-          {/* Shop */}
-          <div>
-            <button
-              onClick={() => setMobileShopOpen((s) => !s)}
-              className="w-full flex justify-between items-center py-2"
-            >
-              <span className="flex items-center">
-                <Store className="mr-2" /> Shop
-              </span>
-              <ChevronDown
-                className={`${
-                  mobileShopOpen ? "rotate-180" : ""
-                } transition-transform`}
-              />
+            <button className="absolute right-2 top-1/2 -translate-y-1/2 text-[#360212] text-[10px] font-black tracking-widest px-2">
+              GO
             </button>
+          </div>
 
-            {mobileShopOpen && (
-              <div className="pl-6 space-y-2 text-sm text-gray-600">
-                <a href="">Men's Collection</a>
-                <a href="">Women's Collection</a>
-                <a href="">Phones</a>
-                <a href="">Accessories</a>
+          {/* Navigation Links */}
+          <div className="space-y-2">
+            {/* Shop Category */}
+            <div className="py-2">
+              <button
+                onClick={() => setMobileShopOpen((s) => !s)}
+                className="w-full flex justify-between items-center py-2 group"
+              >
+                <span className="flex items-center font-serif text-xl font-bold text-[#fcf9f6] group-hover:text-[#fe5457] transition-colors">
+                  <Store className="mr-4 text-[#fe5457]" size={18} strokeWidth={1.5} /> Shop
+                </span>
+                <ChevronDown
+                  size={18}
+                  className={`text-[#fcf9f6] transition-transform duration-300 ${mobileShopOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              <div className={`overflow-hidden transition-all duration-300 ${mobileShopOpen ? "max-h-60 mt-4" : "max-h-0"}`}>
+                <div className="pl-10 space-y-4 border-l border-[#d791be]/20">
+                  {["Men's Collection", "Women's Collection", "Phones", "Accessories"].map((item) => (
+                    <a key={item} href="" className="block text-[11px] font-bold uppercase tracking-[0.2em] text-[#fcf9f6] hover:text-[#360212] transition-colors">
+                      {item}
+                    </a>
+                  ))}
+                </div>
               </div>
-            )}
-          </div>
+            </div>
 
-          {/* Cars */}
-          <div>
-            <a href="#" className="flex items-center py-2">
-              <Car className="mr-2" /> Cars
-            </a>
-          </div>
+            {/* Cars Category */}
+            <div className="py-2 border-t border-[#d791be]/10">
+              <a href="#" className="flex items-center py-2 font-serif text-xl font-bold text-[#fcf9f6] hover:text-[#fe5457] transition-colors">
+                <Car className="mr-4 text-[#fe5457]" size={18} strokeWidth={1.5} /> Cars
+              </a>
+            </div>
 
-          {/* Account */}
-          <div>
-            <button
-              onClick={() => setMobileAccountOpen((s) => !s)}
-              className="w-full flex justify-between items-center py-2"
-            >
-              <span className="flex items-center">
-                <User className="mr-2" /> Account
-              </span>
-              <ChevronDown
-                className={`${
-                  mobileAccountOpen ? "rotate-180" : ""
-                } transition-transform`}
-              />
-            </button>
+            {/* Account Category */}
+            <div className="py-2 border-t border-[#d791be]/10">
+              <button
+                onClick={() => setMobileAccountOpen((s) => !s)}
+                className="w-full flex justify-between items-center py-2"
+              >
+                <span className="flex items-center font-serif text-xl font-bold text-[#fcf9f6]">
+                  <User className="mr-4 text-[#fe5457]" size={18} strokeWidth={1.5} /> Account
+                </span>
+                <ChevronDown
+                  size={18}
+                  className={`text-[#d791be] transition-transform duration-300 ${mobileAccountOpen ? "rotate-180" : ""}`}
+                />
+              </button>
 
-            {mobileAccountOpen && (
-              <div className="pl-6 space-y-2 text-sm text-gray-600">
-                <a href="/profile">Profile</a>
-                <a href="/orders">Orders</a>
-                <a href="/wishlist">Wishlist</a>
-                <a href="/logout">Logout</a>
+              <div className={`overflow-hidden transition-all duration-300 ${mobileAccountOpen ? "max-h-60 mt-4" : "max-h-0"}`}>
+                <div className="pl-10 space-y-4 border-l border-[#d791be]/20">
+                  {["Profile", "Orders", "Wishlist", "Logout", "Login"].map((item) => (
+                    <a key={item} href={`/${item.toLowerCase()}`} className="block text-[11px] font-bold uppercase tracking-[0.2em] text-[#fcf9f6] hover:text-[#360212]">
+                      {item}
+                    </a>
+                  ))}
+                </div>
               </div>
-            )}
-          </div>
+            </div>
 
-          {/* Help */}
-          <div>
-            <button
-              onClick={() => setMobileHelpOpen((s) => !s)}
-              className="w-full flex justify-between items-center py-2"
-            >
-              <span className="flex items-center">
-                <CircleQuestionMark className="mr-2" /> Help
-              </span>
-              <ChevronDown
-                className={`${
-                  mobileHelpOpen ? "rotate-180" : ""
-                } transition-transform`}
-              />
-            </button>
+            {/* Help Category */}
+            <div className="py-2 border-t border-[#d791be]/10">
+              <button
+                onClick={() => setMobileHelpOpen((s) => !s)}
+                className="w-full flex justify-between items-center py-2"
+              >
+                <span className="flex items-center font-serif text-xl font-bold text-[#fcf9f6]">
+                  <CircleHelp className="mr-4 text-[#fe5457]" size={18} strokeWidth={1.5} /> Help
+                </span>
+                <ChevronDown
+                  size={18}
+                  className={`text-[#d791be] transition-transform duration-300 ${mobileHelpOpen ? "rotate-180" : ""}`}
+                />
+              </button>
 
-            {mobileHelpOpen && (
-              <div className="pl-6 space-y-2 text-sm text-gray-600">
-                <a href="/support">Support</a>
-                <a href="/faq">FAQ</a>
-                <a href="/contact">Contact</a>
+              <div className={`overflow-hidden transition-all duration-300 ${mobileHelpOpen ? "max-h-60 mt-4" : "max-h-0"}`}>
+                <div className="pl-10 space-y-4 border-l border-[#d791be]/20">
+                  {["Support", "FAQ", "Contact"].map((item) => (
+                    <a key={item} href={`/${item.toLowerCase()}`} className="block text-[11px] font-bold uppercase tracking-[0.2em] text-[#fcf9f6] hover:text-[#360212]">
+                      {item}
+                    </a>
+                  ))}
+                </div>
               </div>
-            )}
+            </div>
           </div>
 
-          {/* Extra quick links */}
-          <div className="pt-4 border-t">
-            <a href="/about" className="block py-2 text-sm text-gray-700">
-              About
-            </a>
-            <a href="/contact" className="block py-2 text-sm text-gray-700">
-              Contact
-            </a>
-            <a href="/terms" className="block py-2 text-sm text-gray-700">
-              Terms
-            </a>
+          {/* Footer of the Sidebar */}
+          <div className="pt-8 border-t border-[#d791be]/10">
+            <div className="grid grid-cols-2 gap-4">
+              {["About", "Terms", "Privacy", "Shipping"].map((link) => (
+                <a key={link} href={`/${link.toLowerCase()}`} className="text-[9px] font-black uppercase tracking-widest text-[#fcf9f6] hover:text-[#fe5457]">
+                  {link}
+                </a>
+              ))}
+            </div>
+            <p className="mt-8 text-[8px] font-bold uppercase tracking-[0.3em] text-[#fcf9f6]/60 text-center">
+              © 2026 Double-Joy Collective
+            </p>
           </div>
         </div>
       </div>
-
       {/* Overlay when mobile menu open */}
       {isMobileMenuOpen && (
         <div
@@ -417,68 +420,44 @@ export default function Header() {
       )}
 
       {isShopDropdownOpen && (
-        <div className="absolute left-0 px-5 w-full bg-white shadow-lg py-5 z-20 grid grid-cols-4 overflow-hidden">
-          <div className="space-y-2 grid">
-            <p>Women's Collection</p>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Dresses
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Casual Wears
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Dresses
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Official Dresses
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Heals and shoes
-            </a>
-          </div>
-          <div className="space-y-2 grid">
-            <p>Men's Collection</p>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Jean Pants
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Shirts and polos
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Suits and Official wears
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Official Shoes
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Chinos
-            </a>
-          </div>
-          <div className="space-y-2 grid">
-            <p>Car's Collection</p>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Lexus
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Toyota
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Benz
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Nissan
-            </a>
-            <a href="" className=" text-gray-500 hover:text-gray-900">
-              Tesla
-            </a>
-          </div>
-          <div className="space-y-2 grid">
-            <p>Phone Collections</p>
-            <a href="">Iphones</a>
-            <a href="">Samsung</a>
-            <a href="">Infinix</a>
-            <a href="">Techno</a>
-            <a href="">Oppo</a>
+        <div className="absolute left-0 w-full bg-white shadow-2xl py-10 z-20 border-t border-[#d791be]/10 animate-in fade-in slide-in-from-top-2">
+          <div className="container mx-auto px-10 grid grid-cols-4 gap-8">
+            <div className="space-y-4">
+              <p className="font-serif text-xl font-bold text-[#9f002b]">Women's Collection</p>
+              <div className="flex flex-col space-y-2 text-sm text-[#360212]">
+                <Link href="#" className="hover:text-[#fe5457]">Dresses</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Casual Wears</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Official Dresses</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Heels and shoes</Link>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <p className="font-serif text-xl font-bold text-[#9f002b]">Men's Collection</p>
+              <div className="flex flex-col space-y-2 text-sm text-[#360212]">
+                <Link href="#" className="hover:text-[#fe5457]">Jean Pants</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Shirts and polos</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Suits and Official</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Chinos</Link>
+              </div>
+            </div>
+            <div className="space-y-2 grid">
+              <p className="font-serif text-xl font-bold text-[#9f002b]">Car's Collection</p>
+              <div className="flex flex-col space-y-2 text-sm text-[#360212]">
+                <Link href="#" className="hover:text-[#fe5457]">Lexus</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Toyota</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Benz</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Tesla</Link>
+              </div>
+            </div>
+            <div className="space-y-2 grid">
+              <p className="font-serif text-xl font-bold text-[#9f002b]">Phone Collections</p>
+              <div className="flex flex-col space-y-2 text-sm text-[#360212]">
+                <Link href="#" className="hover:text-[#fe5457]">iPhones</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Samsung</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Infinix</Link>
+                <Link href="#" className="hover:text-[#fe5457]">Oppo</Link>
+              </div>
+            </div>
           </div>
         </div>
       )}

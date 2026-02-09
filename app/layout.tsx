@@ -1,8 +1,20 @@
 import type { Metadata } from "next";
 import { CartProvider } from "./context/CartContext";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, Montserrat } from 'next/font/google';
 import "./globals.css";
 import CartPage from "./components/CartPopup";
+
+
+const playfair = Playfair_Display({ 
+  subsets: ['latin'], 
+  variable: '--font-playfair' 
+});
+
+const montserrat = Montserrat({ 
+  subsets: ['latin'], 
+  variable: '--font-montserrat' 
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full`}
+        className={`${playfair.variable} ${montserrat.variable} antialiased w-full`}
       >
         <CartProvider><CartPage/>{children}</CartProvider>
       </body>

@@ -3,10 +3,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Header from "@/app/admin/components/Header";
+import Footer from "@/app/admin/components/Footer";
 import { getCategories, getProductsByCategory } from "@/api/products";
 import api from "@/api/axios";
 import EditProductModal from "../../components/EditProductModal";
 import DeleteProductModal from "../../components/DeleteProductModal";
+import { Plus, Edit3, Trash2, Package, Tag as TagIcon } from "lucide-react";
+import Cookies from "js-cookie";
 
 interface Category {
   id: number;
@@ -68,21 +71,8 @@ export default function AllProducts() {
     }
   };
 
-  // const handleUpdateProduct = async (formData: FormData) => {
-  //   if (!selectedProduct) return;
-
-  //   await api.patch(`/products/${selectedProduct.id}/`, formData, {
-  //     headers: { "Content-Type": "multipart/form-data" },
-  //   });
-
-  //   setSelectedProduct(null);
-  //   refreshProducts();
-  // };
-
   const handleUpdateProduct = async (formData: FormData) => {
     if (!selectedProduct) return;
-
-    // Create a new FormData with only filled fields
     const patchData = new FormData();
     for (let [key, value] of formData.entries()) {
       if (value) patchData.append(key, value);
@@ -96,13 +86,12 @@ export default function AllProducts() {
       setSelectedProduct(null);
       refreshProducts();
     } catch (err: any) {
-      console.error("❌ UPDATE ERRORS:", err.response?.data);
+      console.error("UPDATE ERRORS:", err.response?.data);
     }
   };
 
   const handleDeleteProduct = async () => {
     if (!deleteProduct) return;
-
     await api.delete(`/products/${deleteProduct.id}/`);
     setDeleteProduct(null);
     refreshProducts();
@@ -110,74 +99,121 @@ export default function AllProducts() {
 
   if (loading) {
     return (
-      <>
+      <div className="min-h-screen bg-[#fcf9f6]">
         <Header />
-        <div className="p-6">Loading products...</div>
-      </>
+        <div className="flex items-center justify-center h-[60vh]">
+          <p className="font-serif italic text-[#89547c] animate-pulse">
+            Cataloging Inventory...
+          </p>
+        </div>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-[#fcf9f6] text-[#360212] font-sans">
       <Header />
-      <div className="p-6 max-w-7xl mx-auto">
-        <div className="flex lg:gap-120 md:gap-20">
-          <h1 className="text-3xl font-bold mb-8">Products (Admin)</h1>
+      <div className="p-8 max-w-7xl mx-auto">
+        <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-6">
+          <div>
+            <h1 className="text-4xl font-serif font-bold">Product Catalog</h1>
+            <p className="text-[#89547c] mt-1 italic">
+              Manage your boutique offerings and stock levels.
+            </p>
+          </div>
+
           <a
             href="/admin/dashboard/add-product"
-            className="flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200"
+            className="flex items-center gap-2 px-6 py-3 bg-[#360212] text-white font-bold uppercase tracking-widest text-xs hover:bg-[#fe5457] transition-all shadow-lg"
           >
-            Add Product
+            <Plus size={16} /> Add New Listing
           </a>
-        </div>
+        </header>
+
         {categories.map((category) => {
           const products = productsByCategory[category.id] || [];
           if (products.length === 0) return null;
           return (
-            <section key={category.id} className="mb-12">
-              <h2 className="text-2xl font-semibold mb-6">{category.name}</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <section key={category.id} className="mb-16">
+              <div className="flex items-center gap-4 mb-8">
+                <h2 className="text-xl font-serif font-bold uppercase tracking-widest">
+                  {category.name}
+                </h2>
+                <div className="h-px bg-[#d791be]/30 flex-1"></div>
+                <span className="text-[10px] font-bold text-[#d791be] uppercase">
+                  {products.length} Items
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {products.map((product) => (
-                  <div key={product.id} className="border rounded-lg p-4">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      width={200}
-                      height={200}
-                      className="lg:w-full lg:h-48 lg:object-cover rounded-md mb-4"
-                      unoptimized
-                    />
-                    <h3 className="text-lg font-semibold">{product.name}</h3>
-                    <p className="text-gray-600">#{product.price}</p>
-                    <p
-                      className={`mt-1 font-medium ${
-                        product.stock == 0
-                          ? "text-red-600"
-                          : product.stock <= 5
-                          ? "text-yellow-600"
-                          : "text-green-600"
-                      }`}
-                    >
-                      {product.stock == 0
-                        ? "Out of stock"
-                        : product.stock <= 5
-                        ? `Low stock: ${product.stock}`
-                        : `In stock: ${product.stock}`}
-                    </p>
-                    <p>{product.tag}</p>
-                    <div className="mt-4 flex gap-2">
-                      <button
-                        onClick={() => setSelectedProduct(product)}
-                        className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => setDeleteProduct(product)}
-                        className="px-4 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700"
-                      >
-                        Delete
-                      </button>
+                  <div
+                    key={product.id}
+                    className="group bg-white border border-[#d791be]/10 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
+                  >
+                    <div className="relative h-64 w-full bg-[#fcf9f6]">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
+                      />
+                      {product.tag && (
+                        <div className="absolute top-2 left-2 bg-white/90 backdrop-blur px-2 py-1 flex items-center gap-1">
+                          <TagIcon size={10} className="text-[#fe5457]" />
+                          <span className="text-[9px] font-bold uppercase tracking-tighter">
+                            {product.tag}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-serif text-lg font-bold truncate mb-1">
+                        {product.name}
+                      </h3>
+                      <p className="text-[#9f002b] font-bold mb-3">
+                        ₦{Number(product.price).toLocaleString()}
+                      </p>
+
+                      <div className="flex items-center gap-2 mb-6">
+                        <div
+                          className={`w-2 h-2 rounded-full ${product.stock === 0
+                              ? "bg-[#9f002b]"
+                              : product.stock <= 5
+                                ? "bg-amber-500"
+                                : "bg-emerald-500"
+                            }`}
+                        />
+                        <p
+                          className={`text-[11px] font-bold uppercase tracking-wider ${product.stock === 0
+                              ? "text-[#9f002b]"
+                              : product.stock <= 5
+                                ? "text-amber-600"
+                                : "text-[#89547c]"
+                            }`}
+                        >
+                          {product.stock === 0
+                            ? "Out of Stock"
+                            : product.stock <= 5
+                              ? `Limited: ${product.stock} left`
+                              : `In Stock: ${product.stock}`}
+                        </p>
+                      </div>
+
+                      <div className="flex gap-2 pt-4 border-t border-[#fcf9f6]">
+                        <button
+                          onClick={() => setSelectedProduct(product)}
+                          className="flex-1 flex items-center justify-center gap-2 py-2 text-[10px] font-bold uppercase tracking-widest border border-[#360212] text-[#360212] hover:bg-[#360212] hover:text-white transition-all"
+                        >
+                          <Edit3 size={12} /> Edit
+                        </button>
+                        <button
+                          onClick={() => setDeleteProduct(product)}
+                          className="px-3 py-2 border border-transparent text-[#9f002b] hover:bg-red-50 transition-colors"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -200,6 +236,7 @@ export default function AllProducts() {
         onClose={() => setDeleteProduct(null)}
         onConfirm={handleDeleteProduct}
       />
-    </>
+      <Footer />
+    </div>
   );
 }

@@ -17,84 +17,80 @@ export default function Main() {
     getCategories().then(setCategories);
   }, []);
 
-  const prevSlide = () => {
-    setCurrent(current === 0 ? slides.length - 1 : current - 1);
-  };
-
-  const nextSlide = () => {
-    setCurrent(current === slides.length - 1 ? 0 : current + 1);
-  };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      nextSlide();
-    }, 4000);
-
-    return () => clearInterval(timer);
-  }, [current]);
-
   const slides = [
     {
       src: "/images/slide1.png",
       title: "Step Into the Future",
       description:
         "Experience unparalleled comfort and style with our new minimalist line.",
-      textColor: "text-white",
       url: "/shop/new-arrivals",
     },
     {
       src: "/images/slide2.png",
       title: "Deals of the Week",
       description: "Don't miss out on massive discounts across all categories!",
-      textColor: "text-white",
       url: "/deals",
     },
     {
       src: "/images/slide4.png",
       title: "Deals of the Week",
       description: "Don't miss out on massive discounts across all categories!",
-      textColor: "text-white",
       url: "/deals",
     },
   ];
 
+  const nextSlide = () =>
+    setCurrent(current === slides.length - 1 ? 0 : current + 1);
+  const prevSlide = () =>
+    setCurrent(current === 0 ? slides.length - 1 : current - 1);
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 5000);
+    return () => clearInterval(timer);
+  }, [current]);
+
   return (
-    <main>
+    <main className="bg-[#fcf9f6] font-sans">
+      {/* HERO SECTION */}
       <section className="hero-section">
-        <div className="col-span-8 relative w-full mx-auto overflow-hidden">
+        <div className="relative w-full mx-auto overflow-hidden h-screen">
           <div
-            className="flex transition-transform ease-in-out duration-100"
+            className="flex transition-transform ease-in-out duration-700 h-full"
             style={{ transform: `translateX(-${current * 100}%)` }}
           >
             {slides.map((slide, i) => (
-              <div key={i} className="relative w-full shrink-0">
+              <div key={i} className="relative w-full shrink-0 h-full">
                 <Image
                   src={slide.src}
-                  alt={`Slide ${i + 1}`}
-                  width={1300}
-                  height={800}
-                  className="w-full h-screen object-cover"
+                  alt={slide.title}
+                  fill
+                  className="object-cover"
                   priority={i === 0}
                 />
-
-                {/* Overlay Text Container */}
-                <div
-                  className={`absolute inset-0 flex flex-col justify-center items-start p-10 md:p-20 ${slide.textColor}`}
-                >
-                  <h1 className="text-4xl text-black md:text-5xl font-extrabold mb-3 drop-shadow-lg">
-                    {slide.title}
-                  </h1>
-                  <p className="text-lg text-black md:text-xl mb-6 drop-shadow-md max-w-md">
-                    {slide.description}
-                  </p>
-
-                  {/* Clickable Button */}
-                  <a
-                    href={slide.url}
-                    className="bg-white text-blue-600 px-6 py-3 rounded-lg shadow-lg font-semibold hover:bg-gray-100 transition duration-300 cursor-pointer"
+                {/* Overlay with Gradient for Readability */}
+                <div className="absolute inset-0 bg-linear-to-r from-[#360212]/60 to-transparent flex flex-col justify-center items-start p-10 md:p-24 text-white">
+                  <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="font-serif text-5xl md:text-7xl font-bold mb-4 drop-shadow-md"
                   >
-                    Shop Now
-                  </a>
+                    {slide.title}
+                  </motion.h1>
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-lg md:text-2xl mb-8 max-w-lg text-[#d791be]"
+                  >
+                    {slide.description}
+                  </motion.p>
+
+                  <Link
+                    href={slide.url}
+                    className="bg-[#fe5457] text-white px-8 py-4 rounded-sm shadow-xl font-bold uppercase tracking-widest hover:bg-[#9f002b] transition duration-300"
+                  >
+                    Shop Collection
+                  </Link>
                 </div>
               </div>
             ))}
@@ -103,72 +99,65 @@ export default function Main() {
           {/* Navigation Arrows */}
           <button
             onClick={prevSlide}
-            className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/50 p-2 rounded-full text-white hover:bg-black/75 transition z-10"
-            aria-label="Previous Slide"
+            className="absolute top-1/2 left-6 -translate-y-1/2 bg-white/10 backdrop-blur-md p-3 rounded-full text-white hover:bg-[#fe5457] transition-all z-10"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft size={30} />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/50 p-2 rounded-full text-white hover:bg-black/75 transition z-10"
-            aria-label="Next Slide"
+            className="absolute top-1/2 right-6 -translate-y-1/2 bg-white/10 backdrop-blur-md p-3 rounded-full text-white hover:bg-[#fe5457] transition-all z-10"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight size={30} />
           </button>
-
-          {/* Dots indicator */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`w-3 h-3 rounded-full transition ${
-                  current === i ? "bg-white" : "bg-white/50"
-                }`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
-          </div>
         </div>
       </section>
 
-      <section className="product-groups">
-        <div className="mx-auto lg:p-10 py-5 text-center">
-          <div className="grid gap-8 grid-cols-2 lg:grid-cols-3">
-            {categories.map((cat) => (
-              <motion.div
-                key={cat.id}
-                whileHover={{ scale: 1.03 }}
-                transition={{ type: "spring", stiffness: 200 }}
-              >
-                <Card className="overflow-hidden transition-all duration-300 lg:p-10">
-                  <CardContent>
-                    {/* <Image
-                      src="products/category"
-                      width={300}
-                      height={100}
-                      alt=""
-                      className="mx-auto block"
-                    /> */}
-                  </CardContent>
-                  <CardFooter className="flex justify-center gap-6">
-                    <Link
-                      key={cat.id}
-                      href={`/products/category/${cat.id}`}
-                      rel="noopener noreferrer"
-                      className="bg-blue-600 text-white p-3 rounded-sm transition"
-                    >
-                      {cat.name}
-                      <p className="text-sm">View all {cat.name} products →</p>
-                    </Link>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+      {/* CATEGORIES SECTION */}
+      <section className="product-groups py-20 px-6 container mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="font-serif text-4xl text-[#360212] font-bold">
+            Browse by Category
+          </h2>
+          <div className="w-24 h-1 bg-[#fe5457] mx-auto mt-4"></div>
+        </div>
+
+        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((cat) => (
+            <motion.div
+              key={cat.id}
+              whileHover={{ y: -10 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <Card className="border-none shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden bg-white group">
+                <CardContent className="p-0 relative">
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  {/* <div className="absolute inset-0 bg-[#360212]/20 group-hover:bg-[#360212]/40 transition-colors" /> */}
+                </CardContent>
+                <CardFooter className="flex flex-col items-center p-8 bg-white">
+                  <h3 className="font-serif text-2xl text-[#360212] mb-4">
+                    {cat.name}
+                  </h3>
+                  <Link
+                    href={`/products/category/${cat.id}`}
+                    className="text-sm font-bold uppercase tracking-widest text-[#9f002b] hover:text-[#fe5457] transition-colors border-b-2 border-[#d791be]/30 pb-1"
+                  >
+                    Explore Products
+                  </Link>
+                </CardFooter>
+              </Card>
+            </motion.div>
+          ))}
         </div>
       </section>
-      <Products />
+
+      {/* FEATURED PRODUCTS */}
+      <div className="bg-[#fcf9f6] pb-20">
+        <Products />
+      </div>
     </main>
   );
 }
