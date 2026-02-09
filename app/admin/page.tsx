@@ -130,6 +130,8 @@
 
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { useState, useEffect, Suspense } from "react";
 import { loginUser, decodeToken } from "@/api/auth";
 import { useRouter, useSearchParams } from "next/navigation";
