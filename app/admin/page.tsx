@@ -37,15 +37,9 @@ export default function AdminLogin() {
         Cookies.remove("admin_access");
         return
       }
-      // router.push("/admin/dashboard");
-      window.location.href = "/admin/dashboard";
+      router.push("/admin/dashboard");
+      // window.location.href = "/admin/dashboard";
 
-      // if (!payload) {
-      //   setError("Login failed, token not received");
-      //   return;
-      // }
-
-      // router.push("/admin/dashboard");
     } catch (err: any) {
       const message = err.response?.data?.detail || "Invalid administrative credentials.";
       setError(message);
