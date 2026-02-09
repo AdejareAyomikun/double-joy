@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "doublejoy-backend.onrender.com", // Add this for Render media
+        pathname: "/media/**",
+      },
+      {
+        protocol: "https",
         hostname: "public",
         port: "",
         pathname: "/images/**",
