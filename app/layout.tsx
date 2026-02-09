@@ -41,7 +41,7 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${montserrat.variable} antialiased w-full`}
       >
-        <CartProvider><CartPage/>{children}</CartProvider>
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   );
