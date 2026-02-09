@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+export const dynamic = "force-dynamic";
+
+import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import api from "@/api/axios";
 import Header from "@/app/components/Header";
@@ -21,6 +23,7 @@ export default function PaymentSuccess() {
 
   return (
     <div className="bg-[#fcf9f6] min-h-screen font-sans text-[#360212]">
+      <Suspense>
       <Header />
 
       <main className="max-w-3xl mx-auto px-6 py-24 text-center">
@@ -90,6 +93,7 @@ export default function PaymentSuccess() {
       </main>
 
       <Footer />
+      </Suspense>
     </div>
   );
 }
