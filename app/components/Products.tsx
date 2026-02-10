@@ -24,101 +24,6 @@ export async function getProducts(): Promise<Product[]> {
   return res.data;
 }
 
-// const newArrival = [
-//   {
-//     name: "Bagpack",
-//     image: "/images/products/bagpack.png",
-//     description:
-//       "Laptop Bag Bagpack For Huawei Lenovo HP Xiaomi MacBook Air Pro M1,13 14 15.6inch",
-//     price: 1200,
-//   },
-//   {
-//     name: "Wrist Watch",
-//     image: "/images/products/iphone16pro.png",
-//     description:
-//       "Iphone 16 pro max with 16gb ram and 512gb storage capacity available in different colors",
-//     price: 1200,
-//     live: "https://orbyt-ai.vercel.app/",
-//   },
-//   {
-//     name: "Latest Cars",
-//     image: "/images/products/heels.png",
-//     description:
-//       "Laptop Bag Bagpack For Huawei Lenovo HP Xiaomi MacBook Air Pro M1,13 14 15.6inch",
-//     price: 1200,
-//     live: "https://orbyt-ai.vercel.app/admin",
-//   },
-//   {
-//     name: "Male Shoes",
-//     image: "/images/product4.png",
-//     description:
-//       "Laptop Bag Bagpack For Huawei Lenovo HP Xiaomi MacBook Air Pro M1,13 14 15.6inch",
-//     price: 1200,
-//     live: "https://yourportfolio.vercel.app",
-//   },
-//   {
-//     name: "Male Wears",
-//     image: "/images/products/suits.png",
-//     description:
-//       "Laptop Bag Bagpack For Huawei Lenovo HP Xiaomi MacBook Air Pro M1,13 14 15.6inch",
-//     price: 1200,
-//     live: "https://yourportfolio.vercel.app",
-//   },
-//   {
-//     name: "Female Wears",
-//     image: "/images/product6.png",
-//     description:
-//       "Laptop Bag Bagpack For Huawei Lenovo HP Xiaomi MacBook Air Pro M1,13 14 15.6inch",
-//     price: 1200,
-//     live: "https://yourportfolio.vercel.app",
-//   },
-// ];
-
-// const bestSeller = [
-//   {
-//     name: "apple",
-//     image: "/images/product1.png",
-//     description:
-//       "Laptop Bag Bagpack For Huawei Lenovo HP Xiaomi MacBook Air Pro M1,13 14 15.6inch",
-//     live: "https://orbyt-ai.vercel.app/",
-//   },
-//   {
-//     name: "Wrist Watch",
-//     image: "/images/product2.png",
-//     description:
-//       "Laptop Bag Bagpack For Huawei Lenovo HP Xiaomi MacBook Air Pro M1,13 14 15.6inch",
-//     live: "https://orbyt-ai.vercel.app/",
-//   },
-//   {
-//     name: "Latest Cars",
-//     image: "/images/product3.png",
-//     description:
-//       "Laptop Bag Bagpack For Huawei Lenovo HP Xiaomi MacBook Air Pro M1,13 14 15.6inch",
-//     live: "https://orbyt-ai.vercel.app/admin",
-//   },
-//   {
-//     name: "Male Shoes",
-//     image: "/images/product4.png",
-//     description:
-//       "Laptop Bag Bagpack For Huawei Lenovo HP Xiaomi MacBook Air Pro M1,13 14 15.6inch",
-//     live: "https://yourportfolio.vercel.app",
-//   },
-//   {
-//     name: "Male Wears",
-//     image: "/images/product5.png",
-//     description:
-//       "Laptop Bag Bagpack For Huawei Lenovo HP Xiaomi MacBook Air Pro M1,13 14 15.6inch",
-//     live: "https://yourportfolio.vercel.app",
-//   },
-//   {
-//     name: "Female Wears",
-//     image: "/images/product6.png",
-//     description:
-//       "Laptop Bag Bagpack For Huawei Lenovo HP Xiaomi MacBook Air Pro M1,13 14 15.6inch",
-//     live: "https://yourportfolio.vercel.app",
-//   },
-// ];
-
 export default function Products() {
   const [activeProduct, setActiveProduct] = useState<ProductTag>("new_arrival");
 
@@ -162,7 +67,7 @@ export default function Products() {
         </h1>
         <div className="w-24 h-1 bg-[#fe5457] mx-auto mt-4"></div>
       </div>
-      <header className="flex justify-center gap-2 md:gap-8 border-b border-[#d791be]/20 mb-10 mx-auto max-w-4xl">
+      <header className="flex overflow-x-auto no-scrollbar justify-start md:justify-center gap-2 md:gap-8 border-b border-[#d791be]/20 mb-10 md:mx-auto max-w-4xl">
         {tabs.map((tab) => (
           <button
             key={tab.value}
@@ -179,7 +84,7 @@ export default function Products() {
       </header>
 
       <div className="container mx-auto px-6">
-        <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:gap-10 grid-cols-2 md:grid-cols-3">
           {filteredProducts.map((product) => (
             <motion.div
               key={product.id}
@@ -199,22 +104,22 @@ export default function Products() {
                       height={100}
                       alt=""
                       loading="lazy"
-                      className="w-full h-80 object-contain p-8 group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-40 md:80 object-contain P-4 md:p-8 group-hover:scale-105 transition-transform duration-500"
                     />
                     {/* Subtle Overlay Badge for Tags */}
-                    <span className="absolute top-4 left-4 bg-[#9973a0] text-white text-[10px] px-3 py-1 uppercase tracking-tighter font-bold">
+                    <span className="absolute top-2 left-2 md:top-4 md:left-4 bg-[#9973a0] text-white text-[10px] px-3 py-1 uppercase tracking-tighter font-bold">
                       {product.tag.replace("_", " ")}
                     </span>
                   </CardContent>
                 </Link>
                 <CardFooter className="flex flex-col p-6 text-center">
-                  <h3 className="font-serif text-xl text-[#360212] font-semibold mb-2">
+                  <h3 className="font-serif text-sm md:text-xl text-[#360212] line-clamp-1 font-semibold md:mb-2">
                     {product.name}
                   </h3>
-                  <p className="text-[#89547c] text-sm line-clamp-2 mb-4 h-10 px-4 font-medium">
+                  <p className="hidden md:block text-[#89547c] text-sm line-clamp-2 mb-4 h-10 px-4 font-medium">
                     {product.description}
                   </p>
-                  <div className="mb-4">
+                  <div className="mb-3 md:mb-4">
                     <span className="text-2xl font-bold text-[#360212]">
                       ₦{Number(product.price).toLocaleString()}
                     </span>
