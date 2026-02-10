@@ -72,7 +72,7 @@ export default function Products() {
           <button
             key={tab.value}
             onClick={() => setActiveProduct(tab.value)}
-            className={`pb-4 px-4 font-bold text-sm uppercase tracking-widest transition-all cursor-pointer ${
+            className={`pb-4 px-2 md:px-4 font-bold text-xs md:text-sm uppercase tracking-widest transition-all cursor-pointer ${
               activeProduct === tab.value
                 ? "border-b-2 border-[#9f002b] text-[#9f002b]"
                 : "text-[#89547c] hover:text-[#9f002b]"
