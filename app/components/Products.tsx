@@ -120,7 +120,7 @@ export default function Products() {
                     {product.description}
                   </p>
                   <div className="mb-3 md:mb-4">
-                    <span className="text-2xl font-bold text-[#360212]">
+                    <span className="text-sm md:text-2xl font-bold text-[#360212]">
                       ₦{Number(product.price).toLocaleString()}
                     </span>
                   </div>
