@@ -84,7 +84,7 @@ export default function Products() {
       </header>
 
       <div className="container mx-auto px-6">
-        <div className="grid gap-6 md:gap-10 grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-3 md:gap-8 grid-cols-2 md:grid-cols-3">
           {filteredProducts.map((product) => (
             <motion.div
               key={product.id}
@@ -95,13 +95,13 @@ export default function Products() {
                 <Link
                   key={product.id}
                   href={`/product/${product.id}`}
-                  className="relative block group overflow-hidden"
+                  className="p-0 relative group overflow-hidden"
                 >
                   <CardContent>
                     <img
                       src={product.image}
-                      width={300}
-                      height={100}
+                      // width={300}
+                      // height={100}
                       alt=""
                       loading="lazy"
                       className="w-full h-40 md:80 object-contain P-4 md:p-8 group-hover:scale-105 transition-transform duration-500"

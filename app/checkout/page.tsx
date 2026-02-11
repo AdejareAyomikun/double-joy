@@ -59,7 +59,7 @@ export default function CheckoutPage() {
       <Header />
 
       <div className="max-w-6xl mx-auto px-6 py-16">
-        <h1 className="font-serif text-4xl mb-12 border-b border-[#d791be]/20 pb-6">
+        <h1 className="font-serif text-2xl md:text-4xl mb-12 border-b border-[#d791be]/20 pb-6">
           Finalize Your Order
         </h1>
 
@@ -69,7 +69,7 @@ export default function CheckoutPage() {
             <section>
               <div className="flex items-center gap-3 mb-6 text-[#9f002b]">
                 <MapPin size={20} />
-                <h2 className="font-serif text-2xl font-semibold">
+                <h2 className="font-serif text-xl md:text-2xl font-semibold">
                   Shipping Details
                 </h2>
               </div>
@@ -188,7 +188,7 @@ export default function CheckoutPage() {
                   Calculated
                 </span>
               </div>
-              <div className="flex justify-between text-xl font-bold pt-4 text-[#360212]">
+              <div className="flex justify-between md:text-xl font-bold pt-4 text-[#360212]">
                 <span className="font-serif">Total</span>
                 <span>₦{Number(total).toLocaleString()}</span>
               </div>

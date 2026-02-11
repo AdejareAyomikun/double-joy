@@ -1,6 +1,5 @@
 "use client";
 
-import api from "@/api/axios";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useCart } from "../context/CartContext";
@@ -78,7 +77,7 @@ export default function CartPage() {
                 </div>
 
                 <div className="flex-1">
-                  <h3 className="font-serif text-xl text-[#360212] font-semibold">
+                  <h3 className="font-serif text-sm md:text-xl text-[#360212] font-semibold">
                     {item.product_name}
                   </h3>
                   <p className="text-[#89547c] text-sm mb-4">
@@ -95,7 +94,7 @@ export default function CartPage() {
                       >
                         <Minus size={16} />
                       </button>
-                      <span className="px-4 font-bold text-[#360212]">
+                      <span className="md:px-4 font-bold text-[#360212]">
                         {item.quantity}
                       </span>
                       <button
@@ -146,7 +145,7 @@ export default function CartPage() {
 
               <div className="flex justify-between items-center mb-8">
                 <span className="font-serif text-xl text-[#360212]">Total</span>
-                <span className="text-2xl font-bold text-[#360212]">
+                <span className="md:text-2xl font-bold text-[#360212]">
                   ₦{Number(totalPrice).toLocaleString()}
                 </span>
               </div>
