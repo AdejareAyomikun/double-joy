@@ -8,8 +8,6 @@ import {
   Home,
   UserCog,
   Wallet,
-  BookOpen,
-  BarChart3,
   Settings,
   ShieldCheck,
   MoreHorizontal,
@@ -76,7 +74,7 @@ export default function DashboardLayout({
       {/* Desktop Sidebar */}
       <aside className="hidden sm:flex flex-col gap-6 bg-white  border-r border-[#d791be]/20 w-64 p-4 items-start fixed top-0 left-0 h-full z-20">
         {/* Logo */}
-        <div className="p-8">
+        <div className="px-6 pt-2">
           <Link href="/admin/dashboard">
             <h1 className="font-serif text-2xl font-bold tracking-tighter text-[#360212]">
               Double-Joy
@@ -118,7 +116,7 @@ export default function DashboardLayout({
 
       {/* Main Content */}
       <main className="flex-1 sm:ml-64 min-h-screen">
-        <div className="max-w-[1600px] mx-auto">{children}</div>
+        <div className="max-w-1600px mx-auto">{children}</div>
       </main>
 
       {/* Mobile Footer Nav */}

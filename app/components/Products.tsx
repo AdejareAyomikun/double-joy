@@ -84,7 +84,7 @@ export default function Products() {
       </header>
 
       <div className="container mx-auto px-6">
-        <div className="grid gap-3 md:gap-8 grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-3 md:gap-8 grid-cols-2 lg:grid-cols-3">
           {filteredProducts.map((product) => (
             <motion.div
               key={product.id}
