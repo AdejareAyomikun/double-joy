@@ -91,7 +91,7 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-[#fcf9f6] font-sans text-[#360212]">
       {/* Header */}
       <Header />
-      <div className="p-8 max-w-[1600px] mx-auto">
+      <div className="p-8 max-w-400 mx-auto">
         <header className="mb-10">
           <h1 className="text-4xl font-serif font-bold text-[#360212]">
             Executive Overview

@@ -13,8 +13,8 @@ import {
   MoreHorizontal,
   Layers,
   ShoppingCart,
-  LogOut,
 } from "lucide-react";
+import Cookies from "js-cookie";
 
 export default function DashboardLayout({
   children,
@@ -69,12 +69,24 @@ export default function DashboardLayout({
     const normalize = (str: string) => str.replace(/\/+$/, "");
     return normalize(pathname) === normalize(href);
   };
+
+  const handleLogout = () => {
+    // 1. Clear admin tokens
+    Cookies.remove("admin_access", { path: "/" });
+    Cookies.remove("refresh", { path: "/" });
+
+    // 2. Clear local storage if any
+    localStorage.clear();
+
+    // 3. Force redirect to break any remaining state
+    window.location.href = "/admin";
+  };
   return (
     <section className="min-h-screen flex flex-col bg-[#fcf9f6] text-[#360212] relative font-sans">
       {/* Desktop Sidebar */}
-      <aside className="hidden sm:flex flex-col gap-6 bg-white  border-r border-[#d791be]/20 w-64 p-4 items-start fixed top-0 left-0 h-full z-20">
+      <aside className="hidden md:flex flex-col gap-6 bg-white  border-r border-[#d791be]/20 w-64 p-4 items-start fixed top-0 left-0 h-full z-20">
         {/* Logo */}
-        <div className="px-6 pt-2">
+        <div className="p-4">
           <Link href="/admin/dashboard">
             <h1 className="font-serif text-2xl font-bold tracking-tighter text-[#360212]">
               Double-Joy
@@ -91,11 +103,10 @@ export default function DashboardLayout({
             <Link
               key={name}
               href={href}
-              className={`flex items-center gap-3 px-4 py-3 text-11px font-bold uppercase tracking-widest transition-all duration-300 group ${
-                isActive(href)
+              className={`flex items-center gap-3 px-4 py-3 text-11px font-bold uppercase tracking-widest transition-all duration-300 group ${isActive(href)
                   ? "bg-[#360212] text-white shadow-lg translate-x-1"
                   : "text-[#89547c] hover:text-[#360212] hover:bg-[#fcf9f6]"
-              }`}
+                }`}
             >
               <Icon
                 size={18}
@@ -105,13 +116,6 @@ export default function DashboardLayout({
             </Link>
           ))}
         </nav>
-        {/* Logout / Footer */}
-        <div className="p-4 border-t border-[#fcf9f6]">
-          <button className="flex items-center gap-3 w-full px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-[#9f002b] hover:bg-red-50 transition-colors cursor-pointer">
-            <LogOut size={16} />
-            <span>Sign Out</span>
-          </button>
-        </div>
       </aside>
 
       {/* Main Content */}
@@ -127,9 +131,8 @@ export default function DashboardLayout({
             <Link
               key={name}
               href={href}
-              className={`relative flex flex-col items-center gap-1 transition-all ${
-                active ? "text-[#360212]" : "text-[#d791be]"
-              }`}
+              className={`relative flex flex-col items-center gap-1 transition-all ${active ? "text-[#360212]" : "text-[#d791be]"
+                }`}
             >
               {/* Active indicator bar */}
               {active && (
@@ -146,9 +149,8 @@ export default function DashboardLayout({
         {/* More button */}
         <button
           onClick={() => setShowMore(!showMore)}
-          className={`relative flex flex-col items-center gap-1 transition-all ${
-            showMore ? "text-[#fe5457]" : "text-[#d791be]"
-          }`}
+          className={`relative flex flex-col items-center gap-1 transition-all ${showMore ? "text-[#fe5457]" : "text-[#d791be]"
+            }`}
         >
           {showMore && (
             <span className="absolute -top-2 w-10 h-1 bg-[#fe5457] rounded-full"></span>
@@ -171,9 +173,8 @@ export default function DashboardLayout({
                   key={name}
                   href={href}
                   onClick={() => setShowMore(false)}
-                  className={`flex items-center gap-3 px-6 py-4 bg-white transition-colors ${
-                    active ? "text-[#fe5457]" : "text-[#360212]"
-                  }`}
+                  className={`flex items-center gap-3 px-6 py-4 bg-white transition-colors ${active ? "text-[#fe5457]" : "text-[#360212]"
+                    }`}
                 >
                   <Icon size={18} />
                   <span className="text-[10px] font-bold uppercase tracking-widest">

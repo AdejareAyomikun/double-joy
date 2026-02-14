@@ -74,7 +74,7 @@ export default function CategoryPage() {
         )}
 
         {/* Product Grid */}
-        <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 md:gap-8 grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
             <motion.div
               key={p.id}
@@ -82,10 +82,10 @@ export default function CategoryPage() {
               animate={{ opacity: 1, y: 0 }}
               whileHover={{ y: -10 }}
             >
-              <Card className="border-none bg-white shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden rounded-none group">
+              <Card className="border-none bg-white shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
                 <Link
                   href={`/product/${p.id}`}
-                  className="block relative overflow-hidden"
+                  className="p-0 relative group overflow-hidden"
                 >
                   <CardContent className="p-0">
                     <div className="aspect-4/5 relative">
@@ -93,18 +93,18 @@ export default function CategoryPage() {
                         src={p.image}
                         alt={p.name}
                         fill
-                        className="object-contain p-8 group-hover:scale-110 transition-transform duration-700"
+                        className="w-full h-40 md:h-80 object-contain P-4 md:p-8 group-hover:scale-105 transition-transform duration-500"
                         unoptimized
                       />
                     </div>
                   </CardContent>
                 </Link>
 
-                <CardFooter className="flex flex-col p-8 bg-white text-center">
-                  <h3 className="font-serif text-xl text-[#360212] font-semibold mb-2">
+                <CardFooter className="flex flex-col p-6 text-center">
+                  <h3 className="font-serif text-sm md:text-xl text-[#360212] line-clamp-1 font-semibold mb-2">
                     {p.name}
                   </h3>
-                  <p className="text-2xl font-bold text-[#9f002b] mb-6">
+                  <p className="text-sm md:text-2xl font-bold text-[#9f002b] mb-6">
                     ₦{Number(p.price).toLocaleString()}
                   </p>
 

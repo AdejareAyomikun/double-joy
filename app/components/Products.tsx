@@ -104,7 +104,7 @@ export default function Products() {
                       // height={100}
                       alt=""
                       loading="lazy"
-                      className="w-full h-40 md:80 object-contain P-4 md:p-8 group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-40 md:h-80 object-contain P-4 md:p-8 group-hover:scale-105 transition-transform duration-500"
                     />
                     {/* Subtle Overlay Badge for Tags */}
                     <span className="absolute top-2 left-2 md:top-4 md:left-4 bg-[#9973a0] text-white text-[10px] px-3 py-1 uppercase tracking-tighter font-bold">
