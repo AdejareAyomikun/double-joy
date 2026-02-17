@@ -64,10 +64,10 @@ export default function ProductPage() {
             <span className="text-[#89547c] uppercase tracking-[0.3em] text-xs font-bold mb-4 block">
               Premium Collection
             </span>
-            <h1 className="font-serif text-5xl text-[#360212] font-bold mb-6 leading-tight">
+            <h1 className="font-serif text-2xl md:text-4xl text-[#360212] font-bold mb-6 leading-tight">
               {product.name}
             </h1>
-            <p className="text-3xl font-bold text-[#9f002b] mb-8">
+            <p className="text-xl md:text-3xl font-bold text-[#9f002b] mb-8">
               ₦{Number(product.price).toLocaleString()}
             </p>
             <div className="space-y-6 mb-10 text-[#360212]/80 leading-relaxed text-lg">
