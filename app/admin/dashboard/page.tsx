@@ -93,7 +93,7 @@ export default function DashboardPage() {
       <Header />
       <div className="p-4 md:p-8 max-w-400 mx-auto">
         <header className="mb-4 md:mb-10">
-          <h1 className="teaxt-2xl md:text-4xl font-serif font-bold text-[#360212]">
+          <h1 className="text-2xl md:text-4xl font-serif font-bold text-[#360212]">
             Executive Overview
           </h1>
           <p className="text-[#89547c] mt-2 italic">
@@ -312,7 +312,7 @@ export default function DashboardPage() {
               placeholder='Try: "Predict next week&apos;s revenue"'
               className="md:flex-1 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-[#fe5457]"
             />
-            <button className="px-6 py-3 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-xs hover:bg-[#9f002b] transition-all">
+            <button className="m-2 md:m-0 px-6 py-3 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-xs hover:bg-[#9f002b] transition-all">
               Consult
             </button>
           </div>
