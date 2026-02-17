@@ -101,7 +101,7 @@ export default function DashboardPage() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-10">
           {[
             {
               label: "Total Orders",
@@ -141,9 +141,9 @@ export default function DashboardPage() {
           ))}
         </div>
         {/* End of KPI Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-8 mb-10">
           {charts && (
-            <div className="bg-white p-8 shadow-sm border border-[#d791be]/10">
+            <div className="bg-white p-3 md:p-8 shadow-sm border border-[#d791be]/10">
               <h2 className="font-serif text-xl font-bold mb-6">
                 Revenue Trends (7 Days)
               </h2>
@@ -188,7 +188,7 @@ export default function DashboardPage() {
           )}
 
           {charts && (
-            <div className="bg-white p-8 shadow-sm border border-[#d791be]/10">
+            <div className="bg-white p-3 md:p-8 shadow-sm border border-[#d791be]/10">
               <h2 className="font-serif text-xl font-bold mb-6">
                 Best Selling Products
               </h2>
