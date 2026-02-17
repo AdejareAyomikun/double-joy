@@ -80,16 +80,16 @@ export default function ProductCategory() {
     <div className="min-h-screen bg-[#fcf9f6]">
       <Header />
 
-      <main className="p-8 max-w-7xl mx-auto">
+      <main className="p-4 md:p-8 max-w-7xl mx-auto">
         {/* Header Section */}
-        <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-5 md:mb-12">
           <div>
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#89547c] mb-2">
               <span>Admin Dashboard</span>
               <ChevronRight size={12} className="text-[#d791be]" />
               <span className="text-[#360212]">Collections</span>
             </div>
-            <h1 className="font-serif text-5xl font-bold text-[#360212]">
+            <h1 className="font-serif text-2xl md:text-4xl font-bold text-[#360212]">
               Boutique Departments
             </h1>
           </div>
@@ -116,7 +116,7 @@ export default function ProductCategory() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mg:gap-8">
             <AnimatePresence>
               {categories.map((cat, index) => (
                 <motion.div
@@ -125,7 +125,7 @@ export default function ProductCategory() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="group relative bg-white border border-[#d791be]/10 overflow-hidden shadow-sm hover:shadow-2xl transition-all h-[400px]"
+                  className="group relative bg-white border border-[#d791be]/10 overflow-hidden shadow-sm hover:shadow-2xl transition-all h-100"
                 >
                   {/* Image Placeholder or Actual Image */}
                   <div className="absolute inset-0 bg-[#360212]">

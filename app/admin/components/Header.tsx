@@ -43,7 +43,7 @@ export default function Header() {
           </button>
           <button
             onClick={handleLogout}
-            className="text-[#89547c] hover:text-[#9f002b] transition-colors cursor-pointer flex items-center gap-2 border-l border-[#fcf9f6] pl-4 ml-2"
+            className="text-[#89547c] hover:text-[#9f002b] transition-colors cursor-pointer border-[#fcf9f6]"
             title="Sign Out"
           >
             <LogOut size={18} />
