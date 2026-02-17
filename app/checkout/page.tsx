@@ -58,7 +58,7 @@ export default function CheckoutPage() {
     <div className="bg-[#fcf9f6] min-h-screen font-sans text-[#360212]">
       <Header />
 
-      <div className="max-w-6xl mx-auto px-6 py-16">
+      <div className="max-w-6xl mx-auto px-3 md:px-6 py-5 md:py-16">
         <h1 className="font-serif text-2xl md:text-4xl mb-12 border-b border-[#d791be]/20 pb-6">
           Finalize Your Order
         </h1>

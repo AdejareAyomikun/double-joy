@@ -59,7 +59,7 @@ export default function ProductPage() {
           </motion.div>
         </div>
 
-        <div className="p-8 lg:p-24 flex flex-col justify-center">
+        <div className="p-8 lg:p-24 flex flex-row md:flex-col items-center justify-center">
           <div className="max-w-md">
             <span className="text-[#89547c] uppercase tracking-[0.3em] text-xs font-bold mb-4 block">
               Premium Collection

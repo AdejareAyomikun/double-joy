@@ -53,8 +53,8 @@ export default function CartPage() {
   return (
     <div className="bg-[#fcf9f6] min-h-screen font-sans">
       <Header />
-      <div className="p-8 max-w-5xl mx-auto py-16">
-        <h1 className="font-serif text-4xl text-[#360212] mb-12 border-b border-[#d791be]/30 pb-6">
+      <div className="p-3 md:p-6 max-w-5xl mx-auto py-5 md:py-16">
+        <h1 className="font-serif text-2xl md:text-4xl text-[#360212] mb-12 border-b border-[#d791be]/30 pb-6">
           Shopping Bag
         </h1>
 
