@@ -143,7 +143,7 @@ export default function DashboardPage() {
         {/* End of KPI Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-8 mb-10">
           {charts && (
-            <div className="bg-white p-3 md:p-8 shadow-sm border border-[#d791be]/10">
+            <div className="bg-white p-8 shadow-sm border border-[#d791be]/10">
               <h2 className="font-serif text-xl font-bold mb-6">
                 Revenue Trends (7 Days)
               </h2>
@@ -188,7 +188,7 @@ export default function DashboardPage() {
           )}
 
           {charts && (
-            <div className="bg-white p-3 md:p-8 shadow-sm border border-[#d791be]/10">
+            <div className="bg-white p-8 shadow-sm border border-[#d791be]/10">
               <h2 className="font-serif text-xl font-bold mb-6">
                 Best Selling Products
               </h2>
@@ -220,7 +220,7 @@ export default function DashboardPage() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
           {/* Quick Actions */}
           <div className="lg:col-span-2">
             <h2 className="font-serif text-xl font-bold mb-6">
@@ -306,11 +306,11 @@ export default function DashboardPage() {
               </p>
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="block md:flex gap-2">
             <input
               type="text"
               placeholder='Try: "Predict next week&apos;s revenue"'
-              className="flex-1 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-[#fe5457]"
+              className="md:flex-1 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-[#fe5457]"
             />
             <button className="px-6 py-3 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-xs hover:bg-[#9f002b] transition-all">
               Consult
