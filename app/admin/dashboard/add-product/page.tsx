@@ -83,14 +83,14 @@ export default function AddProduct() {
   return (
     <div className="min-h-screen bg-[#fcf9f6]">
       <Header />
-      <main className="p-8 max-w-4xl mx-auto">
-        <header className="mb-10">
-          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#89547c] mb-2">
+      <main className="p-4 md:p-8 max-w-4xl mx-auto">
+        <header className="mb-4 md:mb-10">
+          <div className="flex items-center gap-1 md:gap-2 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-[#89547c] mb-2">
             <span>Admin Dashboard</span>
             <ChevronRight size={12} className="text-[#d791be]" />
             <span className="text-[#360212]">Catalog Management</span>
           </div>
-          <h1 className="font-serif text-4xl font-bold text-[#360212]">
+          <h1 className="font-serif text-2xl md:text-4xl font-bold text-[#360212]">
             Introduce New Product
           </h1>
         </header>
@@ -175,7 +175,7 @@ export default function AddProduct() {
                 placeholder="Describe the craftsmanship and material..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full border-2 border-[#fcf9f6] p-4 focus:border-[#fe5457] outline-none transition-colors min-h-[120px] text-sm leading-relaxed"
+                className="w-full border-2 border-[#fcf9f6] p-4 focus:border-[#fe5457] outline-none transition-colors min-h-30 text-sm leading-relaxed"
                 required
               />
             </div>
