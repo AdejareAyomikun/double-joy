@@ -175,7 +175,7 @@ export default function ClientRegister() {
             <p className="text-[10px] text-[#89547c] uppercase tracking-widest">
               Already a member?{" "}
               <Link
-                href="/authentication/login"
+                href="/login"
                 className="text-[#360212] font-black border-b border-[#360212] ml-2 pb-1 hover:text-[#fe5457] hover:border-[#fe5457] transition-colors"
               >
                 SIGN IN
