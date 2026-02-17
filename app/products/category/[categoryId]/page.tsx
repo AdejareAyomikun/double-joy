@@ -48,10 +48,10 @@ export default function CategoryPage() {
     <div className="bg-[#fcf9f6] min-h-screen font-sans">
       <Header />
 
-      <section className="container mx-auto py-16 px-6">
+      <section className="container mx-auto py-10 px-3 md:px-6">
         {/* Category Heading */}
         <div className="text-center mb-16">
-          <h1 className="font-serif text-5xl text-[#360212] font-bold capitalize">
+          <h1 className="font-serif text-2xl md:text-4xl text-[#360212] font-bold capitalize">
             {/* {categoryId?.toString().replace("-", " ") || "Collection"} */}
             Products
           </h1>
@@ -74,7 +74,7 @@ export default function CategoryPage() {
         )}
 
         {/* Product Grid */}
-        <div className="grid gap-3 md:gap-8 grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 md:gap-5 grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
             <motion.div
               key={p.id}
