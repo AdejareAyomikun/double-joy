@@ -29,7 +29,7 @@ export default function Header() {
         />
       </div>
 
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-2 md:gap-6">
         <div className="flex items-center gap-4 border-r border-[#fcf9f6] pr-6">
           <button className="text-[#89547c] hover:text-[#fe5457] transition-colors relative">
             <Bell size={18} />
@@ -49,7 +49,7 @@ export default function Header() {
             <LogOut size={18} />
           </button>
         </div>
-        <div className="flex items-center gap-3 pl-2">
+        <div className="flex items-center md:gap-3 md:pl-2">
           <div className="text-right hidden sm:block">
             <p className="text-[10px] font-bold uppercase tracking-widest text-[#360212]">
               Admin Manager

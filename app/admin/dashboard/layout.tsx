@@ -131,7 +131,7 @@ export default function DashboardLayout({
             <Link
               key={name}
               href={href}
-              className={`relative flex flex-col items-center gap-1 transition-all ${active ? "text-[#360212]" : "text-[#d791be]"
+              className={`relative flex flex-col items-center gap-1 transition-all ${active ? "text-[#360212]" : "text-[#89547c]"
                 }`}
             >
               {/* Active indicator bar */}
