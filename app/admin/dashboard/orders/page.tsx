@@ -293,7 +293,7 @@ export default function AdminOrdersPage() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-3 mx-5">
+                  <div className="flex flex-col gap-3 m-5">
                     <button
                       onClick={() =>
                         window.open(
@@ -305,8 +305,6 @@ export default function AdminOrdersPage() {
                     >
                       <Printer size={14} /> View Invoice
                     </button>
-                    <select
-                    />
                   </div>
                 </motion.div>
               ))}

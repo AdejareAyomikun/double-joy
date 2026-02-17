@@ -113,10 +113,10 @@ export default function AllProducts() {
   return (
     <div className="min-h-screen bg-[#fcf9f6] text-[#360212] font-sans">
       <Header />
-      <div className="p-8 max-w-7xl mx-auto">
-        <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-6">
+      <div className="p-4 md:p-8 max-w-7xl mx-auto">
+        <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5 md:mb-12 gap-6">
           <div>
-            <h1 className="text-4xl font-serif font-bold">Product Catalog</h1>
+            <h1 className="text-2xl md:text-4xl font-serif font-bold">Product Catalog</h1>
             <p className="text-[#89547c] mt-1 italic">
               Manage your boutique offerings and stock levels.
             </p>
@@ -144,7 +144,7 @@ export default function AllProducts() {
                   {products.length} Items
                 </span>
               </div>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-8">
                 {products.map((product) => (
                   <div
                     key={product.id}
