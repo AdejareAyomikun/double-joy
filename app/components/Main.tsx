@@ -252,15 +252,15 @@ export default function Main() {
       </section>
 
       {/* CATEGORIES SECTION */}
-      <section className="product-groups py-12 md:py-20 px-4 container mx-auto">
+      <section className="product-groups py-12 md:py-20 px-3 md:px-4 container mx-auto">
         <div className="text-center mb-10 md:mb-16">
-          <h2 className="font-serif text-3xl md:text-4xl text-[#360212] font-bold">
+          <h2 className="font-serif text-2xl md:text-4xl text-[#360212] font-bold">
             Browse Categories
           </h2>
           <div className="w-20 h-1 bg-[#fe5457] mx-auto mt-3"></div>
         </div>
 
-        <div className="grid gap-3 md:gap-8 grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 md:gap-5 grid-cols-2 lg:grid-cols-3">
           {categories.map((cat) => (
             <motion.div
               key={cat.id}

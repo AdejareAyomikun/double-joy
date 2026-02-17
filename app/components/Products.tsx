@@ -62,7 +62,7 @@ export default function Products() {
   return (
     <section className="text-center py-5 bg-[#fcf9f6] font-sans">
       <div className="text-center mb-16">
-        <h1 className="font-serif text-4xl text-[#360212] font-bold">
+        <h1 className="font-serif text-2xl md:text-4xl text-[#360212] font-bold">
           Products
         </h1>
         <div className="w-24 h-1 bg-[#fe5457] mx-auto mt-4"></div>
@@ -83,8 +83,8 @@ export default function Products() {
         ))}
       </header>
 
-      <div className="container mx-auto px-6">
-        <div className="grid gap-3 md:gap-8 grid-cols-2 lg:grid-cols-3">
+      <div className="container mx-auto px-3 md:px-4">
+        <div className="grid gap-2 md:gap-5 grid-cols-2 lg:grid-cols-3">
           {filteredProducts.map((product) => (
             <motion.div
               key={product.id}

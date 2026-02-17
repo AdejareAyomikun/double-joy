@@ -144,7 +144,7 @@ export default function AllProducts() {
                   {products.length} Items
                 </span>
               </div>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-8">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
                 {products.map((product) => (
                   <div
                     key={product.id}

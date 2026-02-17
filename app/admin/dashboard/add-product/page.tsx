@@ -85,7 +85,7 @@ export default function AddProduct() {
       <Header />
       <main className="p-4 md:p-8 max-w-4xl mx-auto">
         <header className="mb-4 md:mb-10">
-          <div className="flex items-center gap-1 md:gap-2 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-[#89547c] mb-2">
+          <div className="flex items-center gap-1 md:gap-2 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-[#89547c] mb-2">
             <span>Admin Dashboard</span>
             <ChevronRight size={12} className="text-[#d791be]" />
             <span className="text-[#360212]">Catalog Management</span>
