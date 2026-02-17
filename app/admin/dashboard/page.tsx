@@ -101,7 +101,7 @@ export default function DashboardPage() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 mb-10">
           {[
             {
               label: "Total Orders",
@@ -141,7 +141,7 @@ export default function DashboardPage() {
           ))}
         </div>
         {/* End of KPI Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-8 mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-3 md:gap-8 mb-10">
           {charts && (
             <div className="bg-white p-8 shadow-sm border border-[#d791be]/10">
               <h2 className="font-serif text-xl font-bold mb-6">
@@ -312,7 +312,7 @@ export default function DashboardPage() {
               placeholder='Try: "Predict next week&apos;s revenue"'
               className="md:flex-1 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-[#fe5457]"
             />
-            <button className="m-2 md:m-0 px-6 py-3 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-xs hover:bg-[#9f002b] transition-all">
+            <button className="mt-2 md:m-0 px-6 py-3 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-xs hover:bg-[#9f002b] transition-all">
               Consult
             </button>
           </div>

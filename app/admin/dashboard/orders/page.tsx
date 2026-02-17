@@ -118,9 +118,9 @@ export default function AdminOrdersPage() {
     <div className="bg-[#fcf9f6] min-h-screen font-sans text-[#360212]">
       <Header />
 
-      <div className="p-8 max-w-6xl mx-auto py-10">
-        <header className="mb-12">
-          <h1 className="text-4xl font-serif font-bold mb-2">
+      <div className="p-4 md:p-8 max-w-6xl mx-auto py-10">
+        <header className="mb-5 md:mb-12">
+          <h1 className="text-2xl md:text-4xl font-serif font-bold mb-2">
             Order Management
           </h1>
           <p className="text-[#89547c]">
@@ -129,7 +129,7 @@ export default function AdminOrdersPage() {
         </header>
 
         {/* ===== FILTER BAR ===== */}
-        <div className="flex flex-col md:flex-row gap-4 mb-10 bg-white p-6 shadow-sm border border-[#d791be]/10">
+        <div className="flex flex-col md:flex-row gap-4 mb-4 md:mb-10 bg-white p-6 shadow-sm border border-[#d791be]/10">
           <div className="relative flex-1">
             <Search
               className="absolute left-3 top-1/2 -translate-y-1/2 text-[#d791be]"
