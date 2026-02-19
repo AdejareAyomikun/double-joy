@@ -84,7 +84,7 @@ export default function Products() {
       </header>
 
       <div className="container mx-auto px-3 md:px-4">
-        <div className="grid gap-2 md:gap-5 grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-2 md:gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {filteredProducts.map((product) => (
             <motion.div
               key={product.id}
@@ -100,11 +100,9 @@ export default function Products() {
                   <CardContent>
                     <img
                       src={product.image}
-                      // width={300}
-                      // height={100}
                       alt=""
                       loading="lazy"
-                      className="w-full h-40 md:h-80 object-contain P-4 md:p-8 group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-40 md:h-64 object-contain P-4 group-hover:scale-105 transition-transform duration-500"
                     />
                     {/* Subtle Overlay Badge for Tags */}
                     <span className="absolute top-2 left-2 md:top-4 md:left-4 bg-[#9973a0] text-white text-[10px] px-3 py-1 uppercase tracking-tighter font-bold">

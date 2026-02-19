@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, MouseEvent as ReactMouseEvent } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   ChevronDown,
   User,
@@ -16,11 +16,15 @@ import {
   Menu,
   X,
   CircleHelp,
+  Search,
 } from "lucide-react";
 import Cookies from "js-cookie";
 import { Button } from "@/components/ui/button";
 
 export default function Header() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [searchQuery, setSearchQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileShopOpen, setMobileShopOpen] = useState(false);
   const [mobileAccountOpen, setMobileAccountOpen] = useState(false);
@@ -34,60 +38,36 @@ export default function Header() {
   const accountDropdownRef = useRef<HTMLLIElement>(null);
   const shopDropdownRef = useRef<HTMLLIElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
+
+  // --- Search Logic ---
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        accountDropdownRef.current &&
-        !accountDropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsAccountDropdownOpen(false);
-      }
+      if (accountDropdownRef.current && !accountDropdownRef.current.contains(event.target as Node)) setIsAccountDropdownOpen(false);
+      if (helpDropdownRef.current && !helpDropdownRef.current.contains(event.target as Node)) setIsHelpDropdownOpen(false);
+      if (shopDropdownRef.current && !shopDropdownRef.current.contains(event.target as Node)) setIsShopDropdownOpen(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
   const toggleAccountDropdown = (e: ReactMouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     e.preventDefault();
     setIsAccountDropdownOpen(!isAccountDropdownOpen);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        helpDropdownRef.current &&
-        !helpDropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsHelpDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
   const toggleHelpDropdown = (e: ReactMouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     e.preventDefault();
     setIsHelpDropdownOpen(!isHelpDropdownOpen);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        shopDropdownRef.current &&
-        !shopDropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsShopDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
   const toggleShopDropdown = (e: ReactMouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     e.preventDefault();
     setIsShopDropdownOpen(!isShopDropdownOpen);
@@ -168,16 +148,18 @@ export default function Header() {
             <Link href="/">Double-Joy</Link>
           </div>
           <div className="flex flex-1 justify-center px-10">
-            <div className="flex items-center space-x-2 font-sans">
+            <form onSubmit={handleSearch} className="flex items-center space-x-2 font-sans">
               <input
                 type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search..."
-                className="p-2 lg:w-[220px] xl:w-[400px] rounded-sm border border-[#9973a0]/40 bg-white text-[#360212] placeholder-[#7A6A63] focus:outline-none focus:ring-2 focus:ring-[#89547c]"
+                className="p-2 lg:w-55 xl:w-100 rounded-sm border border-[#9973a0]/40 bg-white text-[#360212] placeholder-[#7A6A63] focus:outline-none focus:ring-2 focus:ring-[#89547c]"
               />
-              <button className="p-2 bg-[#fe5457] text-white rounded-sm hover:bg-[#9f002b] transition-colors flex items-center cursor-pointer">
+              <button type="submit" className="p-2 bg-[#fe5457] text-white rounded-sm hover:bg-[#9f002b] transition-colors flex items-center cursor-pointer">
                 Search
               </button>
-            </div>
+            </form>
           </div>
           <div className="shrink-0">
             <ul className="flex space-x-5 text-[#360212] font-semibold uppercase tracking-wide text-xs">
@@ -296,16 +278,18 @@ export default function Header() {
 
         <div className="px-6 py-8 space-y-8 overflow-auto h-[calc(100vh-80px)] scrollbar-hide bg-[#360212] backdrop-blur-sm">
           {/* Mobile Search - Redesigned to be more minimal */}
-          <div className="relative group">
+          <form onSubmit={handleSearch} className="relative group">
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="SEARCH COLLECTIONS..."
               className="w-full bg-white border-b border-[#fcf9f6]/30 py-3 px-4 text-[10px] font-bold tracking-widest text-[#360212] outline-none focus:border-[#fe5457] transition-all placeholder:text-[#d791be]/50"
             />
-            <button className="absolute right-2 top-1/2 -translate-y-1/2 text-[#360212] text-[10px] font-black tracking-widest px-2">
+            <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 text-[#360212] text-[10px] font-black tracking-widest px-2">
               GO
             </button>
-          </div>
+          </form>
 
           {/* Navigation Links */}
           <div className="space-y-2">

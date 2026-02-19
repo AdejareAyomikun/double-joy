@@ -58,7 +58,7 @@ export default function CartPage() {
           Shopping Bag
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-12">
           {/* Items List */}
           <div className="lg:col-span-2 space-y-6">
             {cart.items.map((item) => (
@@ -126,8 +126,8 @@ export default function CartPage() {
 
           {/* Summary Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white p-8 shadow-lg border-t-4 border-[#360212]">
-              <h2 className="font-serif text-2xl text-[#360212] mb-6">
+            <div className="bg-white p-4 md:p-8 shadow-lg border-t-4 border-[#360212]">
+              <h2 className="font-serif text-xl md:text-2xl text-[#360212] mb-6">
                 Order Summary
               </h2>
               <div className="space-y-4 border-b border-[#d791be]/20 pb-6 mb-6">

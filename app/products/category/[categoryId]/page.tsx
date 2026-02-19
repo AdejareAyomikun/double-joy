@@ -74,7 +74,7 @@ export default function CategoryPage() {
         )}
 
         {/* Product Grid */}
-        <div className="grid gap-3 md:gap-5 grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 md:gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products.map((p) => (
             <motion.div
               key={p.id}
@@ -88,15 +88,11 @@ export default function CategoryPage() {
                   className="p-0 relative group overflow-hidden"
                 >
                   <CardContent className="p-0">
-                    <div className="aspect-4/5 relative">
-                      <Image
-                        src={p.image}
-                        alt={p.name}
-                        fill
-                        className="w-full h-40 md:h-80 object-contain P-4 md:p-8 group-hover:scale-105 transition-transform duration-500"
-                        unoptimized
-                      />
-                    </div>
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      className="w-full h-40 md:h-64 object-contain P-4 group-hover:scale-105 transition-transform duration-500"
+                    />
                   </CardContent>
                 </Link>
 
@@ -110,7 +106,7 @@ export default function CategoryPage() {
 
                   <button
                     onClick={() => handleAddToCart(p.id)}
-                    className="w-full bg-[#fe5457] text-white py-4 font-bold uppercase tracking-[0.2em] text-xs hover:bg-[#360212] transition-colors duration-300 shadow-lg shadow-[#fe5457]/20"
+                    className="w-full bg-[#fe5457] text-white py-2 font-bold uppercase tracking-[0.2em] text-xs hover:bg-[#360212] transition-colors duration-300 shadow-lg shadow-[#fe5457]/20"
                   >
                     Add to Bag
                   </button>
