@@ -54,7 +54,7 @@ export default function InvoicePage() {
         </Link>
         <button 
           onClick={() => window.print()}
-          className="bg-[#360212] text-white px-6 py-3 font-bold uppercase tracking-widest text-[10px] hover:bg-[#fe5457] transition-all flex items-center gap-2 cursor-pointer shadow-lg"
+          className="bg-[#360212] text-white px-3 md:px-6 py-3 font-bold md:uppercase tracking-widest text-[10px] hover:bg-[#fe5457] transition-all flex items-center gap-2 cursor-pointer shadow-lg"
         >
           <Printer size={16} /> Print Official Invoice
         </button>
@@ -101,19 +101,19 @@ export default function InvoicePage() {
         <table className="w-full mb-12">
           <thead>
             <tr className="bg-[#fcf9f6] text-[#360212]">
-              <th className="py-3 px-4 text-left text-[10px] uppercase tracking-widest font-bold">Item Description</th>
-              <th className="py-3 px-4 text-center text-[10px] uppercase tracking-widest font-bold">Qty</th>
-              <th className="py-3 px-4 text-right text-[10px] uppercase tracking-widest font-bold">Unit Price</th>
-              <th className="py-3 px-4 text-right text-[10px] uppercase tracking-widest font-bold">Total</th>
+              <th className="py-3 px-2 md:px-4 text-left text-[10px] uppercase tracking-widest font-bold">Item Description</th>
+              <th className="py-3 px-2 md:px-4 text-center text-[10px] uppercase tracking-widest font-bold">Qty</th>
+              <th className="py-3 px-2 md:px-4 text-right text-[10px] uppercase tracking-widest font-bold">Unit Price</th>
+              <th className="py-3 px-2 md:px-4 text-right text-[10px] uppercase tracking-widest font-bold">Total</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#fcf9f6]">
             {order.items?.map((item: any) => (
               <tr key={item.id} className="hover:bg-gray-50/50 transition-colors">
-                <td className="py-5 px-4 font-serif text-lg">{item.product_name}</td>
-                <td className="py-5 px-4 text-center text-sm">{item.quantity}</td>
-                <td className="py-5 px-4 text-right text-sm">₦{Number(item.price).toLocaleString()}</td>
-                <td className="py-5 px-4 text-right font-bold text-sm">₦{(item.price * item.quantity).toLocaleString()}</td>
+                <td className="py-5 px-2 md:px-4 font-serif md:text-lg">{item.product_name}</td>
+                <td className="py-5 px-2 md:px-4 text-center text-sm">{item.quantity}</td>
+                <td className="py-5 px-2 md:px-4 text-right text-sm">₦{Number(item.price).toLocaleString()}</td>
+                <td className="py-5 px-2 md:px-4 text-right font-bold text-sm">₦{(item.price * item.quantity).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>
