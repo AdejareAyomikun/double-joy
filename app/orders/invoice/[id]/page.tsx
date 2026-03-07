@@ -73,7 +73,7 @@ export default function InvoicePage() {
           </div>
           <div className="text-right">
             <h2 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#d791be] mb-1">Document Type</h2>
-            <p className="font-serif text-2xl font-bold italic">Official Invoice</p>
+            <p className="md:text-2xl font-serif font-bold italic">Official Invoice</p>
             <p className="text-sm font-mono mt-1 opacity-60">REF: DJ-ORD-{order.id}</p>
           </div>
         </div>
@@ -120,7 +120,7 @@ export default function InvoicePage() {
         </table>
 
         {/* Summary Block */}
-        <div className="flex justify-end pt-8">
+        <div className="flex justify-end pt-5">
           <div className="w-full sm:w-72 space-y-4">
             <div className="flex justify-between text-xs text-[#89547c]">
               <span>Merchandise Subtotal</span>
