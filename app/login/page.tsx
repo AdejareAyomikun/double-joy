@@ -44,7 +44,7 @@ export default function Login() {
       <div className="hidden lg:flex lg:w-1/2 bg-[#360212] relative items-center justify-center p-12 overflow-hidden">
         {/* Subtle Brand Texture */}
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#9f002b] blur-[140px]" />
+          <div className="absolute top-[-20%] right-[-10%] w-125 h-125 rounded-full bg-[#9f002b] blur-[140px]" />
         </div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

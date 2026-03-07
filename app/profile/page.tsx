@@ -112,7 +112,7 @@ export default function ProfilePage() {
           {/* MAIN CONTENT AREA */}
           <section className="flex-1 space-y-10">
             <header>
-              <h1 className="font-serif text-4xl font-bold mb-2">Welcome Back, {displayName}</h1>
+              <h1 className="font-serif text-2xl md:text-4xl font-bold mb-2">Welcome Back, {displayName}</h1>
               <p className="text-[#89547c]">Member since {user?.date_joined ? new Date(user.date_joined).getFullYear() : '2024'}</p>
             </header>
 
@@ -125,7 +125,7 @@ export default function ProfilePage() {
               ].map((stat, i) => (
                 <div key={i} className="bg-white p-6 border-b-4 border-[#fe5457] shadow-sm">
                   <p className="text-xs uppercase tracking-[0.2em] font-bold text-[#89547c] mb-1">{stat.label}</p>
-                  <p className="text-3xl font-serif font-bold text-[#360212]">{stat.value}</p>
+                  <p className="text-xl md:text-3xl font-serif font-bold text-[#360212]">{stat.value}</p>
                 </div>
               ))}
             </div>

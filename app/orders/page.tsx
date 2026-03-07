@@ -138,7 +138,7 @@ export default function OrdersPage() {
                           `/orders/invoice/${order.id}`,
                           "_blank",
                         )
-                      } className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#fe5457] hover:text-[#360212] transition-colors">
+                      } className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#fe5457] hover:text-[#360212] transition-colors cursor-pointer">
                      View Invoice <ExternalLink size={14} />
                    </button>
                 </div>
