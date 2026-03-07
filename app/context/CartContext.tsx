@@ -8,6 +8,7 @@ import {
   ReactNode,
 } from "react";
 import api from "@/api/axios";
+import Cookies from "js-cookie";
 
 interface CartItem {
   id: number;
@@ -47,6 +48,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const clearMessage = () => setSuccessMessage(null);
 
   const fetchCart = async () => {
+    const token = Cookies.get("user_access");
+
+    if (!token) {
+      setCart(null);
+      setLoading(false);
+      return;
+    }
+
     try {
       const res = await api.get("/cart/");
       setCart(res.data as Cart);

@@ -157,7 +157,7 @@ function SuccessContent() {
             </span>
           </div>
           <span className="text-[#89547c] text-sm font-mono">
-            REF: {reference ? reference.slice(0, 8).toUpperCase() : "PENDING"}
+            REF: {reference ? reference.slice(5, 8).toUpperCase() : "PENDING"}
           </span>
         </div>
 

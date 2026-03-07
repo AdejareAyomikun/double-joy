@@ -72,7 +72,8 @@ export default function ProfilePage() {
   const initials = user?.first_name ? user.first_name.charAt(0) : user?.username.charAt(0) || "U";
 
   return (
-    <div className="bg-[#fcf9f6] min-h-screen font-sans text-[#360212]">
+    <>
+    <div className="min-h-screen bg-[#fcf9f6] font-sans text-[#360212]">
       <Header />
 
       <main className="max-w-6xl mx-auto px-6 py-5 md:py-16">
@@ -151,8 +152,8 @@ export default function ProfilePage() {
 
         </div>
       </main>
-
-      <Footer />
     </div>
+    <Footer/>
+    </>
   );
 }

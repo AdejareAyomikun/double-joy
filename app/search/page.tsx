@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import {ShoppingBag} from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 
 type Product = {
     id: number;
@@ -19,7 +19,6 @@ type Product = {
     tag: string;
 };
 
-// --- This part handles the search logic ---
 function SearchContent() {
     const searchParams = useSearchParams();
     const query = searchParams.get("q") || "";
@@ -74,7 +73,7 @@ function SearchContent() {
                             <CardFooter className="flex flex-col p-4 md:p-6 text-center mt-auto">
                                 <h3 className="font-serif text-base md:text-lg text-[#360212] font-semibold mb-2 line-clamp-1">{product.name}</h3>
                                 <span className="text-xl md:text-2xl font-bold text-[#9f002b] mb-4">₦{Number(product.price).toLocaleString()}</span>
-                                <button className="w-full py-2 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-[10px] flex items-center justify-center gap-3">< ShoppingBag size={15} className="hidden md:block"/>Add To Cart</button>
+                                <button className="w-full py-2 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-[10px] flex items-center justify-center gap-3">< ShoppingBag size={15} className="hidden md:block" />Add To Cart</button>
                             </CardFooter>
                         </Card>
                     </motion.div>
@@ -84,15 +83,18 @@ function SearchContent() {
     );
 }
 
-// --- This part prevents the deployment errors (The Fix) ---
+
 export default function SearchPage() {
     return (
-        <main className="min-h-screen bg-[#fcf9f6]">
-            <Header />
-            <Suspense fallback={<div className="text-center py-20 font-serif">Loading Search...</div>}>
-                <SearchContent />
-            </Suspense>
+        <>
+            <main className="min-h-screen bg-[#fcf9f6]">
+                <Header />
+                <Suspense fallback={<div className="text-center py-20 font-serif">Loading Search...</div>}>
+                    <SearchContent />
+                </Suspense>
+
+            </main>
             <Footer />
-        </main>
+        </>
     );
 }

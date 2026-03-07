@@ -6,6 +6,8 @@ export function middleware(request: NextRequest) {
   const userToken = request.cookies.get('user_access')?.value;
   const { pathname } = request.nextUrl;
 
+  console.log(`Guest visiting: ${pathname} | Token present: ${!!userToken}`);
+
   // 1. STOP THE LOOP: If we are on a login page, DO NOT RUN PROTECTIVE LOGIC
   if (pathname === '/admin' || pathname === '/login') {
     return NextResponse.next();
