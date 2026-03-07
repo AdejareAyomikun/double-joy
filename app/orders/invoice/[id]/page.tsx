@@ -68,7 +68,7 @@ export default function InvoicePage() {
         {/* Invoice Header */}
         <div className="flex justify-between items-start mb-10">
           <div>
-            <h1 className="font-serif text-2xl md:text-5xl font-bold tracking-tighter text-[#360212]">Double-Joy</h1>
+            <h1 className="text-2xl md:text-4xl font-serif font-bold tracking-tighter text-[#360212]">Double-Joy</h1>
             <p className="text-[9px] uppercase tracking-[0.4em] text-[#89547c] mt-2">Premium Retail & Logistics</p>
           </div>
           <div className="text-right">

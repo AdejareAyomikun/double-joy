@@ -75,7 +75,7 @@ export default function ProfilePage() {
     <div className="bg-[#fcf9f6] min-h-screen font-sans text-[#360212]">
       <Header />
 
-      <main className="max-w-6xl mx-auto px-6 py-16">
+      <main className="max-w-6xl mx-auto px-6 py-5 md:py-16">
         <div className="flex flex-col md:flex-row gap-12">
 
           {/* SIDEBAR NAVIGATION */}

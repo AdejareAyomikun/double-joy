@@ -65,12 +65,12 @@ export default function OrdersPage() {
     <div className="bg-[#fcf9f6] min-h-screen font-sans text-[#360212]">
       <Header />
 
-      <main className="max-w-5xl mx-auto px-6 py-16">
+      <main className="max-w-5xl mx-auto px-6 py-5 md:py-16">
         <div className="mb-10">
           <Link href="/profile" className="text-xs font-bold uppercase tracking-widest text-[#fe5457] hover:underline mb-4 inline-block">
             ← Back to Profile
           </Link>
-          <h1 className="font-serif text-4xl font-bold">My Orders</h1>
+          <h1 className="text-2xl md:text-4xl font-serif font-bold">My Orders</h1>
           <p className="text-[#89547c] mt-2">Track and manage your recent purchases.</p>
         </div>
 
