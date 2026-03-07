@@ -52,7 +52,6 @@ export default function ProductPage() {
               alt={product.name}
               fill
               className="object-contain"
-              // loading="lazy"
               priority
               unoptimized
             />
@@ -75,9 +74,9 @@ export default function ProductPage() {
             </div>
             <button
               onClick={() => handleAddToCart(product.id)}
-              className="w-full bg-[#fe5457] text-white px-8 py-5 font-bold uppercase tracking-[0.2em] text-sm hover:bg-[#360212] transition-all duration-300 shadow-xl shadow-[#fe5457]/20 flex items-center justify-center gap-3"
+              className="w-full bg-[#fe5457] text-white px-8 py-5 font-bold uppercase tracking-[0.2em] text-sm hover:bg-[#360212] transition-all duration-300 shadow-xl shadow-[#fe5457]/20 flex items-center justify-center gap-3 cursor-pointer"
             >
-              <ShoppingBag size={18} /> Add to Bag
+              <ShoppingBag size={18} /> Add to Cart
             </button>
             <div className="mt-12 grid grid-cols-2 gap-6 pt-10 border-t border-[#d791be]/20">
               <div className="flex items-center gap-3 text-[#89547c]">

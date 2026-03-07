@@ -123,7 +123,7 @@ export default function Login() {
             <button
               className={`w-full bg-[#fe5457] text-white py-4 font-bold uppercase tracking-[0.2em] text-xs hover:bg-[#9f002b] transition-all shadow-lg shadow-[#fe5457]/20 mt-4 ${loading
                   ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                  : "bg-[#360212] text-white hover:bg-[#9f002b] shadow-[#360212]/20"
+                  : "bg-[#360212] text-white hover:bg-[#9f002b] shadow-[#360212]/20 cursor-pointer"
                 }`}
               disabled={loading}
             >

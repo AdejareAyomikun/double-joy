@@ -44,7 +44,7 @@ export default function CheckoutPage() {
   if (!cart || cart.items.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center font-sans text-[#89547c]">
-        Your bag is empty.
+        Your cart is empty.
       </div>
     );
   }

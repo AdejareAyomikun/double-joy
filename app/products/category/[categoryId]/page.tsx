@@ -13,6 +13,7 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import {ShoppingBag} from "lucide-react";
 
 interface Product {
   id: number;
@@ -106,9 +107,9 @@ export default function CategoryPage() {
 
                   <button
                     onClick={() => handleAddToCart(p.id)}
-                    className="w-full bg-[#fe5457] text-white py-2 font-bold uppercase tracking-[0.2em] text-xs hover:bg-[#360212] transition-colors duration-300 shadow-lg shadow-[#fe5457]/20"
+                    className="w-full bg-[#fe5457] text-white py-2 font-bold uppercase tracking-[0.2em] text-xs hover:bg-[#360212] transition-colors duration-300 shadow-lg shadow-[#fe5457]/20 flex items-center justify-center gap-3 cursor-pointer"
                   >
-                    Add to Bag
+                    <ShoppingBag size={15} className="hidden md:block"/>Add to Cart
                   </button>
                 </CardFooter>
               </Card>

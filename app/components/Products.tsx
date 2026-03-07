@@ -7,6 +7,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { useCart } from "@/app/context/CartContext";
 import CartPopup from "@/app/components/CartPopup";
+import { ShoppingBag } from "lucide-react";
 
 type ProductTag = "new_arrival" | "best_seller" | "top_rate" | "special_sales";
 
@@ -125,9 +126,9 @@ export default function Products() {
 
                   <button
                     onClick={() => handleAddToCart(product.id)}
-                    className="w-full py-3 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-xs hover:bg-[#9f002b] transition-colors duration-300 shadow-lg shadow-[#fe5457]/20 cursor-pointer"
+                    className="w-full py-3 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-xs hover:bg-[#9f002b] transition-colors duration-300 shadow-lg shadow-[#fe5457]/20 flex items-center justify-center md:gap-3 cursor-pointer"
                   >
-                    Add To Cart
+                    <ShoppingBag size={15} className="hidden md:block"/>Add To Cart
                   </button>
                 </CardFooter>
               </Card>

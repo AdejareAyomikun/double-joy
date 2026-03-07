@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import {ShoppingBag} from "lucide-react";
 
 type Product = {
     id: number;
@@ -73,7 +74,7 @@ function SearchContent() {
                             <CardFooter className="flex flex-col p-4 md:p-6 text-center mt-auto">
                                 <h3 className="font-serif text-base md:text-lg text-[#360212] font-semibold mb-2 line-clamp-1">{product.name}</h3>
                                 <span className="text-xl md:text-2xl font-bold text-[#9f002b] mb-4">₦{Number(product.price).toLocaleString()}</span>
-                                <button className="w-full py-2 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-[10px]">Add To Cart</button>
+                                <button className="w-full py-2 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-[10px] flex items-center justify-center gap-3">< ShoppingBag size={15} className="hidden md:block"/>Add To Cart</button>
                             </CardFooter>
                         </Card>
                     </motion.div>

@@ -343,11 +343,12 @@ export default function Header() {
 
               <div className={`overflow-hidden transition-all duration-300 ${mobileAccountOpen ? "max-h-60 mt-4" : "max-h-0"}`}>
                 <div className="pl-10 space-y-4 border-l border-[#d791be]/20">
-                  {["Profile", "Orders", "Wishlist", "Logout", "Login"].map((item) => (
+                  {["Profile", "Orders", "Wishlist", "Login"].map((item) => (
                     <a key={item} href={`/${item.toLowerCase()}`} className="block text-[11px] font-bold uppercase tracking-[0.2em] text-[#fcf9f6] hover:text-[#360212]">
                       {item}
                     </a>
                   ))}
+                  <button onClick={handleLogout} className="block text-[11px] font-bold uppercase tracking-[0.2em] text-[#fcf9f6] hover:text-[#360212]">Logout</button>
                 </div>
               </div>
             </div>

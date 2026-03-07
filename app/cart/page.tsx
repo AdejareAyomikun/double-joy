@@ -12,7 +12,7 @@ export default function CartPage() {
   if (loading)
     return (
       <div className="min-h-screen flex items-center justify-center font-sans text-[#89547c]">
-        Loading the items in your selection...
+        Loading the items in your cart...
       </div>
     );
   if (!cart || cart.items.length === 0)
@@ -20,7 +20,7 @@ export default function CartPage() {
       <>
         <Header />
         <div className="flex flex-col items-center justify-center min-h-[60vh] font-serif">
-          <h2 className="text-4xl text-[#360212] mb-6">Your bag is empty</h2>
+          <h2 className="text-4xl text-[#360212] mb-6">Your cart is empty</h2>
           <Link
             href="/"
             className="text-[#fe5457] font-sans font-bold uppercase tracking-widest border-b-2 border-[#fe5457] pb-1 hover:text-[#9f002b] hover:border-[#9f002b] transition-all"

@@ -182,7 +182,7 @@ export default function AdminOrdersPage() {
                   <div className="bg-[#360212] text-white p-4 flex justify-between items-center">
                     <div className="flex items-center gap-4">
                       <span className="font-serif text-lg font-bold tracking-tight">
-                        Order #{order.id}
+                        Order: DJ-ORD-{order.id}
                       </span>
                       <span
                         className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter border ${STATUS_COLORS[order.status]}`}
