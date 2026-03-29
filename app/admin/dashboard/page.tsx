@@ -27,6 +27,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import Header from "../components/Header";
+import AdminAiAssistant from "../components/AdminAiAssistant";
 import Footer from "../components/Footer";
 import Cookies from "js-cookie";
 
@@ -307,14 +308,7 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="block md:flex gap-2">
-            <input
-              type="text"
-              placeholder='Try: "Predict next week&apos;s revenue"'
-              className="md:flex-1 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-[#fe5457]"
-            />
-            <button className="mt-2 md:m-0 px-6 py-3 bg-[#fe5457] text-white font-bold uppercase tracking-widest text-xs hover:bg-[#9f002b] transition-all">
-              Consult
-            </button>
+           <AdminAiAssistant />
           </div>
         </div>
       </div>
