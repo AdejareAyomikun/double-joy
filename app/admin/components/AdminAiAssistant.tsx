@@ -66,9 +66,14 @@ import { Bot, Loader2, Send, RotateCcw } from "lucide-react";
 import { askAiAssistant } from "@/api/adminChat";
 import api from "@/api/axios";
 
+type ChatMessage = {
+  role: string;
+  content: string;
+};
+
 export default function AdminAiAssistant() {
   const [query, setQuery] = useState("");
-  const [messages, setMessages] = useState<{ role: string, content: string }[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
   const [typingIndex, setTypingIndex] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -77,7 +82,7 @@ export default function AdminAiAssistant() {
   useEffect(() => {
     const loadHistory = async () => {
       try {
-        const res = await api.get("/ai/history/");
+        const res = await api.get<ChatMessage[]>("/ai/history/");
         setMessages(res.data);
       } catch (err) {
         console.error("Failed to load chat history", err);
