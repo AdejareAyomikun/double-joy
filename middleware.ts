@@ -14,7 +14,7 @@ export function middleware(request: NextRequest) {
   }
 
   // 2. ADMIN PROTECTION: Only for sub-pages like /admin/dashboard
-  if (pathname.startsWith('/admin/')) { 
+  if (pathname.startsWith('/admin/')) {
     if (!adminToken) {
       return NextResponse.redirect(new URL('/admin', request.url));
     }
@@ -30,5 +30,11 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/profile/:path*', '/checkout/:path*'],
+  // matcher: ['/admin/:path*', '/profile/:path*', '/checkout/:path*'],
+  matcher: [
+    '/admin/((?!api).*)',
+    '/admin',
+    '/profile/:path*',
+    '/checkout/:path*'
+  ],
 };

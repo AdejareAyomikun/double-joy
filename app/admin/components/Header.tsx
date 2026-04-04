@@ -31,14 +31,14 @@ export default function Header() {
 
       <div className="flex items-center gap-2 md:gap-6">
         <div className="flex items-center gap-4 border-r border-[#fcf9f6] pr-6">
-          <button className="text-[#89547c] hover:text-[#fe5457] transition-colors relative">
+          <button className="text-[#89547c] hover:text-[#fe5457] transition-colors cursor-pointer relative">
             <Bell size={18} />
             <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#fe5457] rounded-full border-2 border-white"></span>
           </button>
-          <button className="text-[#89547c] hover:text-[#360212] transition-colors">
+          <button className="text-[#89547c] hover:text-[#360212] transition-colors cursor-pointer">
             <Download size={18} />
           </button>
-          <button className="text-[#89547c] hover:text-[#360212] transition-colors">
+          <button className="text-[#89547c] hover:text-[#360212] transition-colors cursor-pointer">
             <Settings size={18} />
           </button>
           <button
