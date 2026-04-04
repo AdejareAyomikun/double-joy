@@ -153,7 +153,7 @@ export default function AdminAiAssistant() {
       </div>
 
       {/* CHAT DISPLAY AREA */}
-      <div className="mb-6 max-h-64 overflow-y-auto space-y-4 custom-scrollbar transition-all">
+      <div className="mb-6 max-h-200 overflow-y-auto space-y-4 custom-scrollbar transition-all">
         {messages.map((m, i) => (
          <div 
             key={i} 
