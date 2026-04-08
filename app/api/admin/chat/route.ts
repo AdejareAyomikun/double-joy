@@ -71,17 +71,29 @@ export async function POST(req: Request) {
     const cookieStore = await cookies();
     const token = cookieStore.get("admin_access")?.value;
 
-    let storeSnapshot = "{}";
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized: Admin session required." }, { status: 401 });
+    }
+
+    let storeSnapshot:any = "{}";
     try {
       const djangoRes = await fetch("https://doublejoy-backend.onrender.com/api/api/ai/context/", {
-        headers: { "Authorization": `Bearer ${token}` }
+        headers: { "Authorization": `Bearer ${token}` },
+        cache: 'no-store'
       });
       if (djangoRes.ok) {
         storeSnapshot = await djangoRes.json();
+      } else {
+        console.warn(`Django rejected access: ${djangoRes.status}`);
+        storeSnapshot = { error: "Permission denied for live data." };
       }
-    } catch (e) { console.error("Context fetch failed"); }
+    } catch (e) {
+      console.error("Network error fetching context:", e);
+      storeSnapshot = { error: "Database unreachable." };
+    }
 
     const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) throw new Error("Missing AI configuration (API Key).");
 
     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
@@ -96,6 +108,8 @@ export async function POST(req: Request) {
           {
             role: "system",
             content: `You are the DoubleJoy Admin Intelligence.
+
+            ADMIN AUTHENTICATED: The user is Adejare (Administrator).
             BUSINESS DATA: ${JSON.stringify(storeSnapshot)}
             IDENTITY: You are an expert business analyst for an e-commerce platform.
             TONE: Professional, insightful, and concise. 

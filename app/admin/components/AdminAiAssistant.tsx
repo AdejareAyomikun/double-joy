@@ -97,16 +97,18 @@ export default function AdminAiAssistant() {
   }, [messages]);
 
   const handleAction = async () => {
-    if (!query.trim() || loading) return;
+    // if (!query.trim() || loading) return;
+    const trimmedQuery = query.trim();
+    if (!trimmedQuery || loading) return;
 
-    const userMessage = { role: "user", content: query };
-    setMessages((prev) => [...prev, userMessage]); // Add user message to UI
+    const userMessage = { role: "user", content: trimmedQuery };
+    setMessages((prev) => [...prev, userMessage,{ role: "assistant", content: "..." }]);
     setQuery("");
     setLoading(true);
 
     try {
       // Pass the current message AND the history to the API
-      const data = await askAiAssistant(query, messages);
+      const data = await askAiAssistant(trimmedQuery, messages);
       const aiMessage = { role: "assistant", content: data.text };
 
       setMessages((prev) => {
@@ -115,14 +117,20 @@ export default function AdminAiAssistant() {
         return updated;
       });
 
-      setTypingIndex(messages.length + 1);
+      // setTypingIndex(messages.length + 1);
       // setMessages((prev) => [...prev, aiMessage]);
-      await api.post("/ai/history/save/", userMessage);
-      await api.post("/ai/history/save/", aiMessage);
+      // await api.post("/ai/history/save/", userMessage);
+      // await api.post("/ai/history/save/", aiMessage);
+      if (userMessage.content !== "...") {
+        await api.post("/ai/history/save/", userMessage).catch(() => null);
+      }
+      if (aiMessage.content !== "...") {
+        await api.post("/ai/history/save/", aiMessage).catch(() => null);
+      }
     } catch (err) {
       setMessages((prev) => {
         const updated = [...prev];
-        updated[updated.length - 1] = { role: "assistant", content: "System Timeout. Check connection." };
+        updated[updated.length - 1] = { role: "assistant", content: "Session expired or unauthorized. Please re-login to consult the AI." };
         return updated;
         // [...prev, { role: "assistant", content: "Error connecting to AI." }]
       });
