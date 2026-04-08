@@ -146,7 +146,7 @@ export default function AdminAiAssistant() {
   };
 
   return (
-    <div className="mt-3 max-w-2xl bg-[#360212] py-3 px-8 text-white shadow-2xl border-l-4 border-[#fe5457]">
+    <div className="mt-3 max-w-3xl md:max-w-2xl bg-[#360212] py-3 px-2 md:px-8 text-white shadow-2xl border-l-4 border-[#fe5457]">
       <div className="flex items-center gap-4 mb-6">
         <div className="flex items-center gap-4">
           <Bot className="text-[#fe5457]" size={32} />
@@ -161,7 +161,7 @@ export default function AdminAiAssistant() {
       </div>
 
       {/* CHAT DISPLAY AREA */}
-      <div className="mb-6 max-h-200 overflow-y-auto space-y-4 custom-scrollbar transition-all">
+      <div className="mb-6 max-h-110 md:max-h-200 overflow-y-auto space-y-4 custom-scrollbar transition-all">
         {messages.map((m, i) => (
          <div 
             key={i} 
@@ -190,12 +190,12 @@ export default function AdminAiAssistant() {
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleAction()}
           placeholder="Analyze store performance..."
-          className="flex-1 px-4 py-3 bg-white/5 border border-white/10 focus:border-[#fe5457] focus:bg-white/10 outline-none text-sm transition-all placeholder:text-white/20"
+          className="flex-1 px-2 md:px-4 py-3 bg-white/5 border border-white/10 focus:border-[#fe5457] focus:bg-white/10 outline-none text-sm transition-all placeholder:text-white/20"
         />
         <button
           onClick={handleAction}
           disabled={loading}
-          className="bg-[#fe5457] px-6 py-3 hover:bg-[#9f002b] transition-colors flex items-center justify-center min-w-25 disabled:opacity-50"
+          className="bg-[#fe5457] px-0 md:px-6 py-3 hover:bg-[#9f002b] transition-colors flex items-center justify-center min-w-25 disabled:opacity-50"
         >
           {loading ? <Loader2 className="animate-spin" size={20} /> : <Send size={20} />}
         </button>

@@ -293,7 +293,7 @@ export default function DashboardPage() {
         </div>
 
         {/* AI Assistant - Floating-style widget */}
-        <div className="mt-12 max-w-2xl bg-[#360212] p-8 text-white shadow-2xl">
+        <div className="mt-12 max-w-3xl md:max-w-2xl bg-[#360212] p-4 md:p-8 text-white shadow-2xl">
           <div className="flex items-center gap-4 mb-6">
             <div className="p-2 bg-[#fe5457] rounded-full">
               <Bot size={24} />
