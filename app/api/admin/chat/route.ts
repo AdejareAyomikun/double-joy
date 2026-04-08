@@ -96,14 +96,16 @@ export async function POST(req: Request) {
           {
             role: "system",
             content: `You are the DoubleJoy Admin Intelligence.
-            CONTEXT: ${JSON.stringify(storeSnapshot)}
+            BUSINESS DATA: ${JSON.stringify(storeSnapshot)}
             IDENTITY: You are an expert business analyst for an e-commerce platform.
             TONE: Professional, insightful, and concise. 
             CURRENCY: Always use Nigerian Naira (₦).
-            RULES: 
-            - If stock is low, suggest immediate restock.
-            - If revenue is high, congratulate the admin.
-            - Use bullet points for lists.`
+            ANALYSIS RULES: 
+            - Compare 'today' vs 'yesterday' revenue using the 'daily_growth_percent'.
+            - Reference 'this_month' and 'this_year' for long-term trends.
+            - If 'pending_count' is high, suggest fulfillment action.
+            - If stock is low in 'low_stock_alerts', suggest immediate restock.
+            - Use bullet points for structured data.`
           },
           ...history.slice(-10), // ADDED: Spreading previous messages
           { role: "user", content: message }
@@ -112,10 +114,12 @@ export async function POST(req: Request) {
     });
 
     const data = await groqRes.json();
-    if(!data.choices) throw new Error("Groq API Error")
+    if (!data.choices) throw new Error("Groq API Error")
     return NextResponse.json({ text: data.choices[0].message.content });
 
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+//CONTEXT: ${JSON.stringify(storeSnapshot)}
