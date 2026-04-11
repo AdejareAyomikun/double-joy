@@ -180,8 +180,8 @@ export default function AdminOrdersPage() {
                 >
                   {/* TOP STRIP */}
                   <div className="bg-[#360212] text-white p-4 flex justify-between items-center">
-                    <div className="flex items-center gap-4">
-                      <span className="font-serif text-lg font-bold tracking-tight">
+                    <div className="flex items-center gap-1.5 md:gap-4">
+                      <span className="font-serif text-sm md:text-lg font-bold tracking-tight">
                         Order: DJ-ORD-{order.id}
                       </span>
                       <span
