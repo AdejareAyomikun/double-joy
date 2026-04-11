@@ -183,7 +183,7 @@ export default function AdminAiAssistant() {
         <div ref={scrollRef} />
       </div>
 
-      <div className="flex gap-1">
+      <div className="flex gap-1 overflow-hidden">
         <input
           type="text"
           value={query}
