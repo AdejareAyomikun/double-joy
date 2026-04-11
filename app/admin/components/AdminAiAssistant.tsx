@@ -183,19 +183,19 @@ export default function AdminAiAssistant() {
         <div ref={scrollRef} />
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-1">
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleAction()}
           placeholder="Analyze store performance..."
-          className="flex-1 px-2 md:px-4 py-3 bg-white/5 border border-white/10 focus:border-[#fe5457] focus:bg-white/10 outline-none text-sm transition-all placeholder:text-white/20"
+          className="flex-1 px-1 md:px-4 py-3 bg-white/5 border border-white/10 focus:border-[#fe5457] focus:bg-white/10 outline-none text-sm transition-all placeholder:text-white/20"
         />
         <button
           onClick={handleAction}
           disabled={loading}
-          className="bg-[#fe5457] px-0 md:px-6 py-3 hover:bg-[#9f002b] transition-colors flex items-center justify-center min-w-25 disabled:opacity-50"
+          className="bg-[#fe5457] px-0 md:px-4 py-3 hover:bg-[#9f002b] transition-colors flex items-center justify-center min-w-25 disabled:opacity-50"
         >
           {loading ? <Loader2 className="animate-spin" size={20} /> : <Send size={20} />}
         </button>

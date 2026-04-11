@@ -233,7 +233,7 @@ function AdminLoginContent() {
           </div>
 
           <button
-            className={`w-full py-4 font-bold uppercase tracking-[0.25em] text-xs transition-all shadow-lg flex items-center justify-center gap-2 ${
+            className={`w-full py-4 font-bold uppercase tracking-[0.25em] text-xs transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer ${
               loading
                 ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                 : "bg-[#360212] text-white hover:bg-[#9f002b] shadow-[#360212]/20"
