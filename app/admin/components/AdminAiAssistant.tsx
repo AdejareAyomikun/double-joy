@@ -195,7 +195,7 @@ export default function AdminAiAssistant() {
         <button
           onClick={handleAction}
           disabled={loading}
-          className="basis-[25%] bg-[#fe5457] px-0 md:px-4 py-3 hover:bg-[#9f002b] transition-colors flex items-center justify-center min-w-25 disabled:opacity-50"
+          className="basis-[25%] bg-[#fe5457] px-0 md:px-4 py-3 hover:bg-[#9f002b] transition-colors flex items-center justify-center md:min-w-25 disabled:opacity-50"
         >
           {loading ? <Loader2 className="animate-spin" size={20} /> : <Send size={20} />}
         </button>
