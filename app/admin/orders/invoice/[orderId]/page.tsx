@@ -47,9 +47,9 @@ export default function InvoicePage() {
         <div className="absolute top-0 left-0 w-full h-2 bg-[#fe5457]" />
 
         {/* Invoice Header */}
-        <div className="flex justify-between items-start mb-20">
+        <div className="flex justify-between items-start mb-10">
           <div>
-            <h1 className="font-serif text-5xl font-bold tracking-tighter text-[#360212]">Double-Joy</h1>
+            <h1 className="font-serif text-4xl font-bold tracking-tighter text-[#360212]">Double-Joy</h1>
             <p className="text-[9px] uppercase tracking-[0.4em] text-[#89547c] mt-2">Premium Retail & Logistics</p>
           </div>
           <div className="text-right">
@@ -60,7 +60,7 @@ export default function InvoicePage() {
         </div>
 
         {/* Client & Shipping Info */}
-        <div className="grid grid-cols-2 gap-10 mb-16">
+        <div className="grid grid-cols-2 gap-5 mb-10">
           <div className="space-y-2">
             <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#89547c] border-b border-[#fcf9f6] pb-2">Bill To</h3>
             <p className="font-bold text-lg">{order.user}</p>
@@ -79,7 +79,7 @@ export default function InvoicePage() {
         </div>
 
         {/* Itemized Table */}
-        <table className="w-full mb-12">
+        <table className="w-full mb-5">
           <thead>
             <tr className="bg-[#fcf9f6] text-[#360212]">
               <th className="py-3 px-4 text-left text-[10px] uppercase tracking-widest font-bold">Item Description</th>
@@ -101,7 +101,7 @@ export default function InvoicePage() {
         </table>
 
         {/* Summary Block */}
-        <div className="flex justify-end pt-8">
+        <div className="flex justify-end">
           <div className="w-full sm:w-72 space-y-4">
             <div className="flex justify-between text-xs text-[#89547c]">
               <span>Merchandise Subtotal</span>
@@ -119,8 +119,8 @@ export default function InvoicePage() {
         </div>
 
         {/* Disclaimer/Footer */}
-        <div className="mt-24 text-center">
-          <div className="flex items-center gap-4 mb-4 justify-center opacity-20">
+        <div className="mt-5 text-center">
+          <div className="flex items-center gap-2 mb-2 justify-center opacity-20">
             <div className="h-px bg-[#360212] flex-1"></div>
             <Scissors size={14} />
             <div className="h-px bg-[#360212] flex-1"></div>
